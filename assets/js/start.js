@@ -15,6 +15,22 @@
    ========================================================================== */
 (function () {
   'use strict';
+
+  /* --------------------------------------------------- animacja wejścia treści
+     Bloki, które wjeżdżają przy przewijaniu, są ukryte regułą dla `html.js`.
+     Klasa musi trafić na dokument, ZANIM przeglądarka cokolwiek narysuje —
+     inaczej treść mignęłaby najpierw na swoim miejscu, po czym zeskoczyła
+     o 85 px w dół i dopiero wróciła. Właśnie dlatego ustawiamy ją tutaj,
+     w <head>, a nie w site.js, który wykonuje się na końcu strony.
+
+     Gdyby site.js z jakiegoś powodu się nie wczytał, treść zostałaby ukryta
+     na zawsze — po czterech sekundach odsłaniamy ją więc bezwarunkowo.
+     site.js kasuje ten zapasowy licznik, gdy tylko wystartuje. */
+  document.documentElement.classList.add('js');
+  window.__wzOdslon = setTimeout(function () {
+    document.documentElement.classList.remove('js');
+  }, 4000);
+
   try {
     var adres = new URL(location.href);
     var parametry = adres.searchParams;

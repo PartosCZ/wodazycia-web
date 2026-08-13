@@ -931,6 +931,9 @@
 
   /* ------------------------------------------------------------------ start */
   function start() {
+    /* Klasę „js” ustawia już start.js w <head> — tutaj tylko kasujemy jego
+       zapasowy licznik, który odsłoniłby treść, gdyby ten plik się nie wczytał. */
+    clearTimeout(window.__wzOdslon);
     document.documentElement.classList.add('js');
     przekierujStaryLink();
 

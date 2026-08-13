@@ -98,10 +98,12 @@
   --shadow:      0 5px 15px rgba(0, 0, 0, .15);
   --ease:        .25s ease;
 
-  /* Wejście sekcji przy przewijaniu — zmierzone na dotychczasowej stronie:
-     przesunięcie o 85 px i wyraźne wyhamowanie na końcu (motyw Impreza). */
+  /* Wejście sekcji przy przewijaniu — wartości przepisane z motywu Impreza
+     (klatki kluczowe „afb” i „afl”): przesunięcie o 5rem = 85 px, 0,6 s
+     i wyhamowanie na końcu. */
   --reveal-shift: 85px;
-  --reveal-ease: cubic-bezier(.16, .84, .34, 1);
+  --reveal-time: .6s;
+  --reveal-ease: cubic-bezier(.215, .61, .355, 1);
 }
 
 /* Od 1025 px motyw przestaje skalować odstęp sekcji i trzyma stałe 8rem
@@ -1515,24 +1517,44 @@ textarea { min-height: 9rem; resize: vertical; }
 /* ------------------------------------------------------------ pojawianie się
    Delikatne wejście sekcji przy przewijaniu. Bez JavaScriptu (i przy
    wyłączonych animacjach w systemie) treść jest po prostu od razu widoczna. */
-/* Wartości zmierzone na dotychczasowej stronie: treść wjeżdża o 85 px
-   i przez ok. 0,7 s wyraźnie wyhamowuje (motyw Impreza, animacje „afb”
-   i „afl”). Domyślnie od dołu — tak wchodzi siatka aktualności i stopka. */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(var(--reveal-shift));
-  transition: opacity .7s var(--reveal-ease), transform .7s var(--reveal-ease);
+/* Wartości przepisane z motywu Impreza (animacje „afb” i „afl”): treść wjeżdża
+   o 85 px przez 0,6 s i wyraźnie wyhamowuje na końcu. Domyślnie od dołu —
+   tak wchodzi siatka aktualności i stopka. Ukrycie działa od pierwszej klatki,
+   bo klasę „js” ustawia start.js jeszcze w <head>; bez tego treść mignęłaby
+   najpierw na swoim miejscu i dopiero potem zeskoczyła w dół. */
+/* To jest animacja, a nie przejście — tak samo jak w motywie. Przejście
+   uruchamia się tylko wtedy, gdy przeglądarka zdążyła narysować stan przed
+   zmianą; przy szybkim wczytaniu obie klasy trafiają w tę samą klatkę i ruchu
+   po prostu nie widać. Animacja odtwarza się zawsze, więc wejście treści
+   wygląda za każdym razem identycznie. */
+[data-reveal] { opacity: 0; }
+[data-reveal].shown {
+  animation: afb var(--reveal-time) var(--reveal-ease) both;
 }
 /* Wejście z lewej — wiersze z podcastami w „Zainspiruj się!” oraz wiersze
    z portretami na stronie Kościół. */
-[data-reveal="left"]  { transform: translateX(calc(-1 * var(--reveal-shift))); }
-[data-reveal="right"] { transform: translateX(var(--reveal-shift)); }
-[data-reveal].shown { opacity: 1; transform: none; }
+[data-reveal="left"].shown  { animation-name: afl; }
+[data-reveal="right"].shown { animation-name: afr; }
+
+@keyframes afb {
+  from { opacity: 0; transform: translateY(var(--reveal-shift)); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes afl {
+  from { opacity: 0; transform: translateX(calc(-1 * var(--reveal-shift))); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes afr {
+  from { opacity: 0; transform: translateX(var(--reveal-shift)); }
+  to   { opacity: 1; transform: none; }
+}
+
 .no-js [data-reveal],
-html:not(.js) [data-reveal] { opacity: 1; transform: none; }
+html:not(.js) [data-reveal] { opacity: 1; animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  [data-reveal],
+  [data-reveal].shown { opacity: 1; transform: none; animation: none; }
 }
 
 /* --------------------------------------------------------------- kadrowanie

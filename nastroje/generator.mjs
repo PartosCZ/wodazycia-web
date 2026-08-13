@@ -250,6 +250,22 @@ function popawNaglowek(html, jezyk, plik, jestBledna) {
 
   let out = html;
 
+  /* Klasa „shown” odsłania blok z animacją wejścia. Rysująca przeglądarka
+     przewija stronę do końca, więc w chwili zrzutu część bloków ma ją już
+     ustawioną — i w gotowym pliku zostałyby odsłonięte na starcie, zamiast
+     wjechać przy przewijaniu. Kasujemy ją, żeby na każdej stronie animacja
+     zachowywała się tak samo. */
+  out = out.replace(/(<[^>]*\sdata-reveal(?:="[^"]*")?[^>]*\sclass=")([^"]*)"/g,
+    (calosc, poczatek, klasy) => {
+      const bez = klasy.split(/\s+/).filter((k) => k && k !== 'shown').join(' ');
+      return poczatek + bez + '"';
+    });
+  out = out.replace(/(<[^>]*\sclass=")([^"]*)("[^>]*\sdata-reveal)/g,
+    (calosc, poczatek, klasy, koniec) => {
+      const bez = klasy.split(/\s+/).filter((k) => k && k !== 'shown').join(' ');
+      return poczatek + bez + koniec;
+    });
+
   const podmienMeta = (klucz, wartosc, atrybut = 'property') => {
     const re = new RegExp(`(<meta ${atrybut}="${klucz}" content=")[^"]*(")`, 'i');
     if (re.test(out)) out = out.replace(re, `$1${wartosc}$2`);
