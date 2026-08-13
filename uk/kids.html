@@ -90,7 +90,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-flush">
     <div class="wrap shown" data-reveal="">
       <div class="panel-dark">
         <p data-i18n="kids.intro">Ми хочемо бачити молоде покоління, яке живе з Богом! Тому як волонтери створюємо місце, де в дружній атмосфері і креативно розповідаємо про Бога, граємось, молимось, прославляємо і навіть разом снідаємо!</p>
@@ -99,18 +99,22 @@
   </section>
 
   <!-- ------------------------------------------------------ NIEDZIELA Z KIDS -->
-  <section class="section">
+  <section class="section section-z-panelem">
     <div class="wrap">
       <!-- Tekst na jasnym panelu po lewej (3 części), zdjęcie po prawej
            (2 części) wypływające do krawędzi okna. -->
       <div class="split split-3-2 split-stretch stack-photo-first">
         <div class="panel-light" data-reveal="">
           <h2 data-i18n-split="kids.sunday.h2" data-outline="outline-dark">Неділя з <span class="outline-dark">kids</span></h2>
-          <p class="mt-2" data-i18n="kids.sunday.p1">Щотижня проводимо заняття для дітей 4–9 років</p>
-          <!-- Godziny zapisu bierzemy z content.js → kidsCheckIn. -->
-          <p><span data-i18n="kids.sunday.p2">Реєстрація триває</span> <strong id="kids-checkin">10:50 – 11:15</strong></p>
+          <!-- Zdanie o godzinach zapisu jest w oryginale drugim wierszem tego
+               samego akapitu, nie osobnym — dlatego łamanie, a nie nowy <p>.
+               Godziny bierzemy z content.js → kidsCheckIn. -->
+          <p class="mt-2">
+            <span data-i18n="kids.sunday.p1">Щотижня проводимо заняття для дітей 4–9 років</span><br>
+            <span data-i18n="kids.sunday.p2">Реєстрація триває</span> <strong id="kids-checkin">10:50 – 11:15</strong>
+          </p>
           <p data-i18n="kids.sunday.p3">Для батьків і малюків до 3 років підготовлена ігрова кімната та сповивальний столик. Кімната обладнана телевізором із трансляцією зібрання.</p>
-          <div class="iconrow left mt-3" data-docs="kids"><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/standardy-ochrony-dzieci.pdf" target="_blank" rel="noopener">Стандарти захисту дітей</a></div><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/zasady-dla-rodzicow.pdf" target="_blank" rel="noopener">Правила для батьків</a></div></div>
+          <div class="iconrow left mt-2" data-docs="kids"><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/standardy-ochrony-dzieci.pdf" target="_blank" rel="noopener">Стандарти захисту дітей</a></div><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/zasady-dla-rodzicow.pdf" target="_blank" rel="noopener">Правила для батьків</a></div></div>
         </div>
         <div class="photo-col bleed-right" data-bg="assets/img/kids-5.webp" role="presentation" style="background-image: url(&quot;../assets/img/kids-5.webp&quot;);"></div>
       </div>

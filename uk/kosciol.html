@@ -106,7 +106,7 @@
   </section>
 
   <!-- ------------------------------- JAK ŻYJEMY / CO ROBIMY / JAK ZWYCIĘŻAMY -->
-  <section class="section">
+  <section class="section section-akordeon">
     <div class="wrap">
       <!-- Zdjęcie wypływa poza kontener aż do lewej krawędzi okna. -->
       <div class="split split-2-3 split-stretch">
@@ -140,7 +140,7 @@
   </section>
 
   <!-- ------------------------------------------------------------ WARTOŚCI -->
-  <section class="section">
+  <section class="section section-flush">
     <div class="wrap">
       <!-- Tekst po lewej, zdjęcie po prawej, w proporcji 3 : 2. -->
       <div class="split split-3-2 split-stretch">
@@ -163,7 +163,7 @@
   <!-- ------------------------------------------------------------- LUDZIE -->
   <!-- Sekcja jest biała; kolor niosą poszczególne wiersze, na przemian
        jasnoszary i ciemny — dokładnie jak na dotychczasowej stronie. -->
-  <section class="section">
+  <section class="section section-po-wartosciach">
     <div class="wrap">
 
       <!-- Trzy wiersze w proporcji 1 : 2, zdjęcie zawsze po lewej, wjeżdżają
@@ -175,8 +175,8 @@
         <div>
           <h3 data-i18n="church.pastor.h3">Пастор Матеуш Ґодава</h3>
           <p class="mt-2" data-i18n="church.pastor.text">Матеуш Ґодава — пастор церкви Woda Życia. Разом із дружиною Анетою з 2018 року вони активно творять місцеву спільноту в Кошаліні, надихаючи відкривати неймовірну пригоду, якою є щоденне життя у стосунках із Христом. Матеуш і Анета — батьки Аліси та Еліана.</p>
-          <div class="iconrow left mt-2">
-            <div class="iconbox">
+          <div class="iconrow left stack mt-2">
+            <div class="iconbox" data-icon="instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"></circle></svg>
               <a href="https://www.instagram.com/mateuszgodawa/" target="_blank" rel="noopener" data-i18n="church.pastor.instagram">Instagram</a>
             </div>
           </div>
@@ -185,7 +185,10 @@
 
       <!-- Zdjęcie zespołu jest szerokie — pokazujemy je w naturalnych
            proporcjach, bez przycinania do kolumny. -->
-      <div class="split split-1-2 mt-3 people-row dark" data-reveal="left">
+      <!-- W oryginale ten wiersz jest wyrównany do góry: nagłówek „Zespół
+           liderów” stoi na wysokości górnej krawędzi zdjęcia, a nie pośrodku
+           kolumny (pozostałe dwa wiersze są wyśrodkowane w pionie). -->
+      <div class="split split-1-2 split-start mt-3 people-row dark" data-reveal="left">
         <img class="photo-plain" src="../assets/img/liderzy.webp" data-asset="assets/img/liderzy.webp" width="832" height="654" loading="lazy" data-i18n-alt="church.leaders.h3" alt="Команда лідерів">
         <div>
           <h3 data-i18n="church.leaders.h3">Команда лідерів</h3>
@@ -198,7 +201,7 @@
         <div>
           <h3 data-i18n="church.founder.h3">Пастор Павел Ґодава</h3>
           <p class="mt-2" data-i18n="church.founder.text">Павел Ґодава (1967–2018) — від заснування протягом майже 30 років був головним пастором церкви «Woda Życia». Історія його покликання сягає часів католицького харизматичного руху 80-х років. У своїх проповідях він представляв практичний підхід до віри, Святого Письма і стосунків людини з Богом. Зміна мислення, стилю життя, стосунки з близькими, щедрість і будування місцевої церкви були найважливішими темами його вчення. Автор книжок: Zrozumienie życia, Sztuka słuchania, Niebo i piekło w kościele, Niebo i piekło w portfelu.</p>
-          <div class="iconrow left mt-2" id="founder-links"><div class="iconbox"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.8.8 0 0 1-1.1.3c-3-1.9-6.9-2.3-11.4-1.2a.8.8 0 1 1-.3-1.5c4.9-1.1 9.2-.7 12.6 1.4.4.2.5.7.2 1Zm1.2-2.9a1 1 0 0 1-1.3.3c-3.5-2.1-8.7-2.8-12.8-1.5a1 1 0 0 1-.6-1.9c4.7-1.4 10.5-.7 14.5 1.8.4.3.6.9.2 1.3Zm.1-3c-4.1-2.4-11-2.7-15-1.5a1.2 1.2 0 1 1-.7-2.3C6.8 5.3 14.4 5.7 19.1 8.5a1.2 1.2 0 0 1-1.2 2Z"></path></svg><a href="https://open.spotify.com/show/5s4gsjMH7Gf8ulx3S6EEG0" target="_blank" rel="noopener">Архів проповідей</a></div><div class="iconbox"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.9-.5-5.7c-.3-1-1.1-1.8-2.1-2.1C18.6 3.7 12 3.7 12 3.7s-6.6 0-8.4.5c-1 .3-1.8 1.1-2.1 2.1C1 8.1 1 12 1 12s0 3.9.5 5.7c.3 1 1.1 1.8 2.1 2.1 1.8.5 8.4.5 8.4.5s6.6 0 8.4-.5c1-.3 1.8-1.1 2.1-2.1.5-1.8.5-5.7.5-5.7zM9.9 15.4V8.6l5.6 3.4-5.6 3.4z"></path></svg><a href="https://www.youtube.com/watch?v=hHQFfzf8J-0" target="_blank" rel="noopener">Піонери — про тих, хто йшов перед нами #2, пастор Павел Ґодава</a></div></div>
+          <div class="iconrow left stack mt-2" id="founder-links"><div class="iconbox"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.8.8 0 0 1-1.1.3c-3-1.9-6.9-2.3-11.4-1.2a.8.8 0 1 1-.3-1.5c4.9-1.1 9.2-.7 12.6 1.4.4.2.5.7.2 1Zm1.2-2.9a1 1 0 0 1-1.3.3c-3.5-2.1-8.7-2.8-12.8-1.5a1 1 0 0 1-.6-1.9c4.7-1.4 10.5-.7 14.5 1.8.4.3.6.9.2 1.3Zm.1-3c-4.1-2.4-11-2.7-15-1.5a1.2 1.2 0 1 1-.7-2.3C6.8 5.3 14.4 5.7 19.1 8.5a1.2 1.2 0 0 1-1.2 2Z"></path></svg><a href="https://open.spotify.com/show/5s4gsjMH7Gf8ulx3S6EEG0" target="_blank" rel="noopener">Архів проповідей</a></div><div class="iconbox"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.9-.5-5.7c-.3-1-1.1-1.8-2.1-2.1C18.6 3.7 12 3.7 12 3.7s-6.6 0-8.4.5c-1 .3-1.8 1.1-2.1 2.1C1 8.1 1 12 1 12s0 3.9.5 5.7c.3 1 1.1 1.8 2.1 2.1 1.8.5 8.4.5 8.4.5s6.6 0 8.4-.5c1-.3 1.8-1.1 2.1-2.1.5-1.8.5-5.7.5-5.7zM9.9 15.4V8.6l5.6 3.4-5.6 3.4z"></path></svg><a href="https://www.youtube.com/watch?v=hHQFfzf8J-0" target="_blank" rel="noopener">Піонери — про тих, хто йшов перед нами #2, пастор Павел Ґодава</a></div></div>
         </div>
       </div>
 

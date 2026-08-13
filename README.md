@@ -100,6 +100,12 @@ być dostępna, zanim ułożą się certyfikaty.
 | Kolory, rozmiary, odstępy | `assets/css/style.css` → sekcja `:root` na górze |
 | Układ strony, kolejność sekcji | `_sablony/` → odpowiedni plik `*.html` |
 
+> **Nie zmieniaj `html { font-size: 17px }`** w `assets/css/style.css`. Cała
+> skala serwisu jest z tego wyliczona — nagłówki (5rem = 85 px, 3rem = 51 px),
+> odstępy sekcji (8rem = 136 px), odstępy kolumn (3rem = 51 px). Tę wartość ma
+> motyw Impreza na dotychczasowej stronie; po zmianie na 16 px wszystko robi
+> się o ~6% mniejsze i przestaje się zgadzać z oryginałem.
+
 Plik `assets/js/site.js` zawiera logikę (przełączanie języków, menu, akordeony,
 zakładki, filmy, mapa). Jego zmieniać nie trzeba.
 

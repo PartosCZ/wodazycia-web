@@ -302,7 +302,7 @@ pl: {
       email: 'E-mail',
       social: 'Media społecznościowe'
     },
-    map: { h2: 'Jak do nas trafić', directions: 'Wyznacz trasę', approach: 'Wjazd z ul. Władysława IV znajduje się przy budynku firm Pimax i Marek Mazur. Po kilkudziesięciu metrach droga się rozwidla — trzymaj się lewej strony; prawa odnoga prowadzi do firmy Chemia.' }
+    map: { h2: 'Jak do nas trafić', directions: 'Wyznacz trasę' }
   },
 
   /* -------------------------------------------- Polityka prywatności */
@@ -600,7 +600,7 @@ cs: {
       email: 'E-mail',
       social: 'Sociální sítě'
     },
-    map: { h2: 'Jak se k nám dostanete', directions: 'Zobrazit trasu', approach: 'Sjezd z ulice Władysława IV je u budovy firem Pimax a Marek Mazur. Po několika desítkách metrů se cesta rozdvojuje — držte se vlevo; pravá odbočka vede k firmě Chemia.' }
+    map: { h2: 'Jak se k nám dostanete', directions: 'Zobrazit trasu' }
   },
 
   privacy: {
@@ -896,7 +896,7 @@ sk: {
       email: 'E-mail',
       social: 'Sociálne siete'
     },
-    map: { h2: 'Ako sa k nám dostanete', directions: 'Zobraziť trasu', approach: 'Zjazd z ulice Władysława IV je pri budove firiem Pimax a Marek Mazur. Po niekoľkých desiatkach metrov sa cesta rozdvojuje — držte sa vľavo; pravá odbočka vedie k firme Chemia.' }
+    map: { h2: 'Ako sa k nám dostanete', directions: 'Zobraziť trasu' }
   },
 
   privacy: {
@@ -1192,7 +1192,7 @@ uk: {
       email: 'Електронна пошта',
       social: 'Соціальні мережі'
     },
-    map: { h2: 'Як нас знайти', directions: 'Прокласти маршрут', approach: 'З’їзд з вулиці Владислава IV — біля будівлі фірм Pimax і Marek Mazur. Через кілька десятків метрів дорога роздвоюється: тримайся лівого боку, права веде до фірми Chemia.' }
+    map: { h2: 'Як нас знайти', directions: 'Прокласти маршрут' }
   },
 
   privacy: {
@@ -1488,7 +1488,7 @@ ru: {
       email: 'Электронная почта',
       social: 'Социальные сети'
     },
-    map: { h2: 'Как нас найти', directions: 'Проложить маршрут', approach: 'Съезд с улицы Владислава IV — у здания фирм Pimax и Marek Mazur. Через несколько десятков метров дорога раздваивается: держись левой стороны, правая ведёт к фирме Chemia.' }
+    map: { h2: 'Как нас найти', directions: 'Проложить маршрут' }
   },
 
   privacy: {
@@ -1784,7 +1784,7 @@ de: {
       email: 'E-Mail',
       social: 'Soziale Netzwerke'
     },
-    map: { h2: 'So finden Sie uns', directions: 'Route anzeigen', approach: 'Die Zufahrt von der ul. Władysława IV liegt am Gebäude der Firmen Pimax und Marek Mazur. Nach einigen Dutzend Metern gabelt sich der Weg — halten Sie sich links; rechts geht es zur Firma Chemia.' }
+    map: { h2: 'So finden Sie uns', directions: 'Route anzeigen' }
   },
 
   privacy: {
@@ -2080,7 +2080,7 @@ en: {
       email: 'Email',
       social: 'Social media'
     },
-    map: { h2: 'How to find us', directions: 'Get directions', approach: 'The turn-off from ul. Władysława IV is by the building of the Pimax and Marek Mazur companies. After a few dozen metres the road forks — keep left; the right branch leads to the Chemia company.' }
+    map: { h2: 'How to find us', directions: 'Get directions' }
   },
 
   privacy: {
@@ -2376,7 +2376,7 @@ es: {
       email: 'Correo electrónico',
       social: 'Redes sociales'
     },
-    map: { h2: 'Cómo llegar', directions: 'Ver la ruta', approach: 'La entrada desde la ul. Władysława IV está junto al edificio de las empresas Pimax y Marek Mazur. Tras unas decenas de metros el camino se bifurca: mantente a la izquierda; el ramal derecho lleva a la empresa Chemia.' }
+    map: { h2: 'Cómo llegar', directions: 'Ver la ruta' }
   },
 
   privacy: {
@@ -2672,7 +2672,7 @@ sv: {
       email: 'E-post',
       social: 'Sociala medier'
     },
-    map: { h2: 'Hitta hit', directions: 'Visa vägen', approach: 'Infarten från ul. Władysława IV ligger vid byggnaden med företagen Pimax och Marek Mazur. Efter några tiotal meter delar sig vägen — håll till vänster; den högra grenen leder till företaget Chemia.' }
+    map: { h2: 'Hitta hit', directions: 'Visa vägen' }
   },
 
   privacy: {
@@ -2968,7 +2968,7 @@ hu: {
       email: 'E-mail',
       social: 'Közösségi média'
     },
-    map: { h2: 'Hogyan találsz meg minket', directions: 'Útvonal megjelenítése', approach: 'A Władysława IV utcáról a behajtó a Pimax és a Marek Mazur cég épületénél van. Néhány tíz méter után az út elágazik — tarts balra; a jobb oldali ág a Chemia céghez vezet.' }
+    map: { h2: 'Hogyan találsz meg minket', directions: 'Útvonal megjelenítése' }
   },
 
   privacy: {

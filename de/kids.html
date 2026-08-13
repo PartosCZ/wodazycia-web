@@ -90,7 +90,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-flush">
     <div class="wrap shown" data-reveal="">
       <div class="panel-dark">
         <p data-i18n="kids.intro">Wir möchten eine junge Generation sehen, die mit Gott lebt! Deshalb schaffen wir als Ehrenamtliche einen Ort, an dem wir in freundlicher Atmosphäre und auf kreative Weise von Gott erzählen, spielen, beten, anbeten und sogar gemeinsam frühstücken!</p>
@@ -99,18 +99,22 @@
   </section>
 
   <!-- ------------------------------------------------------ NIEDZIELA Z KIDS -->
-  <section class="section">
+  <section class="section section-z-panelem">
     <div class="wrap">
       <!-- Tekst na jasnym panelu po lewej (3 części), zdjęcie po prawej
            (2 części) wypływające do krawędzi okna. -->
       <div class="split split-3-2 split-stretch stack-photo-first">
         <div class="panel-light" data-reveal="">
           <h2 data-i18n-split="kids.sunday.h2" data-outline="outline-dark">Sonntag mit <span class="outline-dark">kids</span></h2>
-          <p class="mt-2" data-i18n="kids.sunday.p1">Jede Woche gibt es ein Programm für Kinder von 4 bis 9 Jahren</p>
-          <!-- Godziny zapisu bierzemy z content.js → kidsCheckIn. -->
-          <p><span data-i18n="kids.sunday.p2">Die Anmeldung läuft</span> <strong id="kids-checkin">10:50 – 11:15</strong></p>
+          <!-- Zdanie o godzinach zapisu jest w oryginale drugim wierszem tego
+               samego akapitu, nie osobnym — dlatego łamanie, a nie nowy <p>.
+               Godziny bierzemy z content.js → kidsCheckIn. -->
+          <p class="mt-2">
+            <span data-i18n="kids.sunday.p1">Jede Woche gibt es ein Programm für Kinder von 4 bis 9 Jahren</span><br>
+            <span data-i18n="kids.sunday.p2">Die Anmeldung läuft</span> <strong id="kids-checkin">10:50 – 11:15</strong>
+          </p>
           <p data-i18n="kids.sunday.p3">Für Eltern und Kleinkinder bis 3 Jahre stehen ein Spielraum und ein Wickeltisch bereit. Der Raum ist mit einem Fernseher mit Übertragung des Gottesdienstes ausgestattet.</p>
-          <div class="iconrow left mt-3" data-docs="kids"><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/standardy-ochrony-dzieci.pdf" target="_blank" rel="noopener">Kinderschutzstandards</a></div><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/zasady-dla-rodzicow.pdf" target="_blank" rel="noopener">Regeln für Eltern</a></div></div>
+          <div class="iconrow left mt-2" data-docs="kids"><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/standardy-ochrony-dzieci.pdf" target="_blank" rel="noopener">Kinderschutzstandards</a></div><div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path><path d="M4 19.5h16"></path></svg><a href="../assets/dokumenty/zasady-dla-rodzicow.pdf" target="_blank" rel="noopener">Regeln für Eltern</a></div></div>
         </div>
         <div class="photo-col bleed-right" data-bg="assets/img/kids-5.webp" role="presentation" style="background-image: url(&quot;../assets/img/kids-5.webp&quot;);"></div>
       </div>

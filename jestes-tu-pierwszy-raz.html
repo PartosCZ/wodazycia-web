@@ -142,13 +142,14 @@
   </section>
 
   <!-- Film powitalny. Odtwarzacz wstawia się dopiero po kliknięciu. -->
-  <section class="section-tight">
+  <section class="section section-flush">
     <div class="wrap shown" data-reveal="">
-      <button class="video" data-video="introVideoId" style="background-image: url(&quot;https://i.ytimg.com/vi/lnMFxx7Uk2g/hqdefault.jpg&quot;);" type="button" aria-label="Odtwórz nagranie"><span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6L19 12 8 5.2Z"></path></svg></span></button>
+      <!-- Film jest w oryginale odsunięty o 51 px od lewej krawędzi kontenera. -->
+      <button class="video video-inset" data-video="introVideoId" style="background-image: url(&quot;https://i.ytimg.com/vi/lnMFxx7Uk2g/hqdefault.jpg&quot;);" type="button" aria-label="Odtwórz nagranie"><span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6L19 12 8 5.2Z"></path></svg></span></button>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-flush">
     <div class="wrap" data-reveal="">
       <div class="panel-dark">
         <p data-i18n="first.intro">Od ponad 30 lat tworzymy w Koszalinie otwartą społeczność chrześcijańską. Pochodzimy z różnych środowisk, mamy różne historie, ale łączy nas jedno – Jezus Chrystus. Jesteśmy przekonani, że życie w wierze to fascynująca przygoda, do której Pan Bóg zaprasza każdego człowieka – Ciebie również!</p>
@@ -160,12 +161,12 @@
   </section>
 
   <!-- --------------------------------------------- NAJCZĘSTSZE PYTANIA -->
-  <section class="section" id="pytania">
+  <section class="section section-flush" id="pytania">
     <div class="wrap">
       <!-- Tekst 3 części po lewej, zdjęcie 2 części po prawej, wypływa
            do krawędzi okna; na wąskim ekranie zdjęcie idzie nad tekst. -->
       <div class="split split-3-2 split-stretch stack-photo-first">
-        <div data-reveal="">
+        <div class="split-inset" data-reveal="">
           <h2 data-i18n-split="first.faq.h2" data-outline="outline-blue">Najczęstsze <span class="outline-blue">pytania</span></h2>
 
           <div class="accordion mt-2">
@@ -228,11 +229,11 @@
   </section>
 
   <!-- ------------------------------------------------- WODA ŻYCIA START -->
-  <section class="section">
+  <section class="section section-z-panelem">
     <div class="wrap">
       <div class="split split-2-3 split-stretch">
         <div class="photo-col bleed-left" data-bg="assets/img/pierwszy-raz-3.webp" role="presentation" style="background-image: url(&quot;assets/img/pierwszy-raz-3.webp&quot;);"></div>
-        <div class="section-alt" style="padding:clamp(1.5rem,4vw,3.5rem)" data-reveal="" id="woda-zycia-start">
+        <div class="panel-light" data-reveal="" id="woda-zycia-start">
           <h2 data-i18n-split="first.start.h2" data-outline="outline-blue">Woda Życia <span class="outline-blue">start</span></h2>
           <div class="mt-2">
             <button class="video" data-video="startVideoId" style="background-image: url(&quot;https://i.ytimg.com/vi/1cT6endIJno/maxresdefault.jpg&quot;);" type="button" aria-label="Odtwórz nagranie"><span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6L19 12 8 5.2Z"></path></svg></span></button>
@@ -418,11 +419,11 @@
   </section>
 
   <!-- --------------------------------------------------- SKŁAD APOSTOLSKI -->
-  <section class="section">
+  <section class="section section-z-panelem">
     <div class="wrap">
       <div class="split split-2-3 split-stretch">
         <div class="photo-col bleed-left" data-bg="assets/img/tlo-wierzymy.webp" role="presentation" style="background-image: url(&quot;assets/img/tlo-wierzymy.webp&quot;);"></div>
-        <div data-reveal="">
+        <div class="panel-light" data-reveal="">
           <!-- Sam nagłówek „Skład apostolski” jest wzrokowo ukryty — na
                dotychczasowej stronie tego bloku nie ma wcale. Zostaje jednak
                w dokumencie, żeby czytniki ekranu i wyszukiwarki wiedziały,

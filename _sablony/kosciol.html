@@ -63,7 +63,7 @@
   </section>
 
   <!-- ------------------------------- JAK ŻYJEMY / CO ROBIMY / JAK ZWYCIĘŻAMY -->
-  <section class="section">
+  <section class="section section-akordeon">
     <div class="wrap">
       <!-- Zdjęcie wypływa poza kontener aż do lewej krawędzi okna. -->
       <div class="split split-2-3 split-stretch">
@@ -97,7 +97,7 @@
   </section>
 
   <!-- ------------------------------------------------------------ WARTOŚCI -->
-  <section class="section">
+  <section class="section section-flush">
     <div class="wrap">
       <!-- Tekst po lewej, zdjęcie po prawej, w proporcji 3 : 2. -->
       <div class="split split-3-2 split-stretch">
@@ -120,7 +120,7 @@
   <!-- ------------------------------------------------------------- LUDZIE -->
   <!-- Sekcja jest biała; kolor niosą poszczególne wiersze, na przemian
        jasnoszary i ciemny — dokładnie jak na dotychczasowej stronie. -->
-  <section class="section">
+  <section class="section section-po-wartosciach">
     <div class="wrap">
 
       <!-- Trzy wiersze w proporcji 1 : 2, zdjęcie zawsze po lewej, wjeżdżają
@@ -132,8 +132,8 @@
         <div>
           <h3 data-i18n="church.pastor.h3"></h3>
           <p class="mt-2" data-i18n="church.pastor.text"></p>
-          <div class="iconrow left mt-2">
-            <div class="iconbox">
+          <div class="iconrow left stack mt-2">
+            <div class="iconbox" data-icon="instagram">
               <a href="https://www.instagram.com/mateuszgodawa/" target="_blank" rel="noopener"
                  data-i18n="church.pastor.instagram"></a>
             </div>
@@ -143,7 +143,10 @@
 
       <!-- Zdjęcie zespołu jest szerokie — pokazujemy je w naturalnych
            proporcjach, bez przycinania do kolumny. -->
-      <div class="split split-1-2 mt-3 people-row dark" data-reveal="left">
+      <!-- W oryginale ten wiersz jest wyrównany do góry: nagłówek „Zespół
+           liderów” stoi na wysokości górnej krawędzi zdjęcia, a nie pośrodku
+           kolumny (pozostałe dwa wiersze są wyśrodkowane w pionie). -->
+      <div class="split split-1-2 split-start mt-3 people-row dark" data-reveal="left">
         <img class="photo-plain" src="assets/img/liderzy.webp" data-asset="assets/img/liderzy.webp"
              width="832" height="654" loading="lazy" data-i18n-alt="church.leaders.h3" alt="">
         <div>
@@ -157,7 +160,7 @@
         <div>
           <h3 data-i18n="church.founder.h3"></h3>
           <p class="mt-2" data-i18n="church.founder.text"></p>
-          <div class="iconrow left mt-2" id="founder-links"></div>
+          <div class="iconrow left stack mt-2" id="founder-links"></div>
         </div>
       </div>
 

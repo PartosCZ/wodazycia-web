@@ -398,6 +398,12 @@
       if (v) el.setAttribute('aria-label', v);
     });
 
+    // Podpowiedź w pustym polu formularza (formularz płatności).
+    $$('[data-i18n-placeholder]', root || document).forEach((el) => {
+      const v = t(el.dataset.i18nPlaceholder);
+      if (v) el.setAttribute('placeholder', v);
+    });
+
     // Opis alternatywny obrazka.
     $$('[data-i18n-alt]', root || document).forEach((el) => {
       const v = t(el.dataset.i18nAlt);
@@ -518,6 +524,17 @@
 
     const odbiorca = $('#giving-recipient');
     if (odbiorca) odbiorca.textContent = DATA.giving.recipient;
+  }
+
+  /* --------------------------------------------------------- ikona w wierszu
+     Wiersze z ikoną, które są wpisane wprost w szablonie (a nie składane
+     z content.js), zaznaczają swoją ikonę atrybutem data-icon — rysunki
+     leżą w jednym miejscu, w ICON wyżej. */
+  function wstawIkony(root) {
+    $$('[data-icon]', root || document).forEach((el) => {
+      const rys = ICON[el.dataset.icon];
+      if (rys && !$('svg', el)) el.insertAdjacentHTML('afterbegin', rys);
+    });
   }
 
   /* ------------------------------------------------------ odnośniki do PDF */
@@ -684,15 +701,14 @@
            href="https://www.google.com/maps/search/?api=1&amp;query=${adres}">Google Maps</a>
         <a class="btn btn-light" target="_blank" rel="noopener"
            href="https://maps.apple.com/?daddr=${wsp}&amp;dirflg=d">Apple Maps</a>
-      </div>
-      <p class="map-approach">${esc(t('contact.map.approach'))}</p>`;
+      </div>`;
 
-    /* Przyciski i opis dojazdu wstawiamy od razu — to zwykły tekst i odnośniki,
-       nic stąd nie wycieka na zewnątrz, a dzięki temu trafiają do gotowego
-       HTML-a. Wyszukiwarki i narzędzia AI widzą więc odpowiedź na pytanie
-       „jak dojechać do Wody Życia”, a odwiedzający z wyłączonym JavaScriptem
-       nadal dostaje trasę. Dociągana z opóźnieniem jest tylko sama ramka
-       z mapą — to ona łączy się z obcym serwerem. */
+    /* Przyciski z trasą wstawiamy od razu — to zwykłe odnośniki, nic stąd nie
+       wycieka na zewnątrz, a dzięki temu trafiają do gotowego HTML-a.
+       Wyszukiwarki i narzędzia AI widzą więc odpowiedź na pytanie „jak
+       dojechać do Wody Życia”, a odwiedzający z wyłączonym JavaScriptem nadal
+       dostaje trasę. Dociągana z opóźnieniem jest tylko sama ramka z mapą —
+       to ona łączy się z obcym serwerem. */
     host.innerHTML = `<div class="map-frame" id="map-frame"></div>${przyciski}`;
     const ramka = $('#map-frame', host);
 
@@ -926,6 +942,7 @@
     wstawKontakt();
     wstawKonta();
     wstawDokumenty();
+    wstawIkony();
     wstawFormularzePlatnosci();
     wstawZalozyciela();
     wstawPodcasty();

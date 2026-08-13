@@ -319,8 +319,7 @@ const I18N = {
    },
    "map": {
     "h2": "Jak do nas trafić",
-    "directions": "Wyznacz trasę",
-    "approach": "Wjazd z ul. Władysława IV znajduje się przy budynku firm Pimax i Marek Mazur. Po kilkudziesięciu metrach droga się rozwidla — trzymaj się lewej strony; prawa odnoga prowadzi do firmy Chemia."
+    "directions": "Wyznacz trasę"
    }
   },
   "privacy": {
@@ -704,8 +703,7 @@ const I18N = {
    },
    "map": {
     "h2": "Hitta hit",
-    "directions": "Visa vägen",
-    "approach": "Infarten från ul. Władysława IV ligger vid byggnaden med företagen Pimax och Marek Mazur. Efter några tiotal meter delar sig vägen — håll till vänster; den högra grenen leder till företaget Chemia."
+    "directions": "Visa vägen"
    }
   },
   "privacy": {

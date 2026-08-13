@@ -170,28 +170,30 @@
 
   <!-- ------------------------------------------------- WPADNIJ DO NAS -->
   <section class="section section-map" data-bg="assets/img/sekcja-mapa.webp" style="background-image: url(&quot;assets/img/sekcja-mapa.webp&quot;);">
-    <div class="wrap center" data-reveal="">
+    <div class="wrap center shown" data-reveal="">
       <h2 data-i18n="home.visit.h2">Wpadnij do nas</h2>
-      <p class="lead" style="max-width:44rem;margin-inline:auto" data-i18n="home.visit.p">Tak po prostu. Bez względu na to skąd jesteś, ile masz lat, w co wierzysz, jak się ubierasz czy na kogo głosujesz.</p>
-      <div class="iconrow mt-3" id="times" aria-label="Spotkanie niedzielne">
+      <!-- Na oryginale akapit siedzi w środkowej kolumnie siatki 1-2-1,
+           czyli zajmuje dokładnie połowę szerokości kontenera. -->
+      <p class="lead" style="max-width:50%;margin-inline:auto" data-i18n="home.visit.p">Tak po prostu. Bez względu na to skąd jesteś, ile masz lat, w co wierzysz, jak się ubierasz czy na kogo głosujesz.</p>
+      <div class="iconrow big mt-3" id="times" aria-label="Spotkanie niedzielne">
       <div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"></circle><path d="M12 6.8V12l3.4 2"></path></svg><span>Niedziela 11:00</span></div>
       <div class="iconbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.3c0 5.4-8 12-8 12s-8-6.6-8-12a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10.2" r="2.8"></circle></svg><span>ul. Władysława IV 147, Koszalin</span></div></div>
-      <div class="btn-row center mt-3">
+      <div class="btn-row center mt-2">
         <a class="btn btn-primary" data-page-link="contact" href="kontakt" data-i18n="home.visit.cta">Kontakt</a>
       </div>
     </div>
   </section>
 
   <!-- ------------------------------------------- SPOTKANIA ONLINE -->
-  <section class="section section-alt">
+  <section class="section section-alt-soft">
     <div class="wrap center" data-reveal="">
       <h2 data-i18n="home.online.h2">Oglądaj spotkania online</h2>
-      <div class="mt-3">
+      <div class="video-box mt-2">
         <!-- Transmisja na żywo z kanału YouTube. Odtwarzacz wstawia się
              dopiero po kliknięciu — patrz wstawWideo() w site.js. -->
         <button class="video" data-video="live" data-poster="assets/img/yt-placeholder.webp" style="background-image: url(&quot;assets/img/yt-placeholder.webp&quot;);" type="button" aria-label="Transmisja na żywo"><span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6L19 12 8 5.2Z"></path></svg></span></button>
       </div>
-      <div class="btn-row center mt-3">
+      <div class="btn-row center mt-2">
         <a class="btn btn-primary" id="yt-channel" href="https://www.youtube.com/@wodazyciakoszalin/featured" target="_blank" rel="noopener" data-i18n="home.online.channel">Zobacz nasz kanał na Youtube</a>
         <a class="btn btn-primary" id="yt-archive" href="https://www.youtube.com/@wodazyciakoszalin/streams" target="_blank" rel="noopener" data-i18n="home.online.archive">Zobacz spotkania archiwalne</a>
       </div>
@@ -222,11 +224,11 @@
   </section>
 
   <!-- ----------------------------------------------------- AKTUALNOŚCI -->
-  <section class="section section-alt">
+  <section class="section">
     <div class="wrap" data-reveal="">
       <h2 class="center" data-i18n="home.news.h2">Aktualności</h2>
       <!-- data-limit="2" — na stronie głównej pokazujemy dwie najnowsze. -->
-      <div class="news-grid mt-3" id="news-grid" data-limit="2"><article class="news-card">
+      <div class="news-grid para mt-3" id="news-grid" data-limit="2"><article class="news-card">
         <div class="news-img" style="background-image:url(assets/img/sluzba-wiezienna.webp)" role="img" aria-label="SŁUŻBA WIĘZIENNA"></div>
         <div class="news-body">
           <div class="news-meta">
@@ -245,7 +247,7 @@
           <h3>KURS ALPHA 2026</h3>
           <p>Już 29 września 2026 r. rusza kolejna edycja Kursu Alpha w Wodzie Życia! Alpha to seria spotkań dla każdego, kto chce poznać podstawy wiary chrześcijańskiej, zadać ważne pytania o Boga, życie i wiarę oraz porozmawiać o nich w swobodnej atmosferze — bez presji i oceniania. Udział jest bezpłatny, nie trzeba się wcześniej rejestrować.</p>
         </div></a></div>
-      <div class="btn-row center mt-3">
+      <div class="btn-row center mt-2">
         <a class="btn btn-primary" data-page-link="news" href="aktualnosci" data-i18n="home.news.all">Wszystkie aktualności</a>
       </div>
     </div>
