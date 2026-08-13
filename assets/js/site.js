@@ -117,27 +117,34 @@
      do przycisku (patrz dopasujMenu). */
   const NAV_KEYS = ['first', 'church', 'kids', 'news', 'give', 'contact'];
 
-  /* Na stronie produkcyjnej adresy są bez końcówki (wodazycia.org/kosciol) —
-     GitHub Pages i tak znajdzie plik, a adres jest ładniejszy i lepiej się go
-     przekazuje dalej. Po otwarciu katalogu z dysku albo z innego lokalnego
-     serwera końcówka zostaje, inaczej odnośniki prowadziłyby donikąd.
-     Tej samej reguły pilnuje assets/js/start.js. */
-  const CZYSTE_ADRESY = /(^|\.)wodazycia\.org$|\.github\.io$/.test(location.hostname);
+  /* WSZYSTKIE odnośniki serwis buduje WZGLĘDNIE — nigdy od korzenia domeny.
+     Dzięki temu jest obojętne, gdzie serwis leży: w korzeniu (wodazycia.org),
+     w podkatalogu (partoscz.github.io/wodazycia-web/) czy wprost na dysku.
+     Wcześniej adresy od korzenia były włączane na podstawie nazwy hosta i na
+     GitHub Pages w podkatalogu prowadziły o poziom za wysoko — nie wczytywał
+     się ani arkusz stylów, ani skrypty.
 
-  /** Z nazwy pliku robi adres strony w danym języku.
-      Produkcyjnie bezwzględny i bez końcówki ('/uk/kosciol'), z dysku
-      względny z końcówką ('../uk/kosciol.html'), żeby odnośniki działały
-      także po otwarciu katalogu z plików. */
+     Osobno decydujemy tylko o końcówce .html: przez http(s) serwer sam znajdzie
+     plik pod adresem bez końcówki (tak działa GitHub Pages, hosting produkcyjny
+     oraz nastroje/serwer.mjs), a adres jest ładniejszy. Po otwarciu pliku
+     z dysku końcówka jest konieczna, bo nie ma serwera, który by ją dopisał.
+     Tej samej reguły pilnuje assets/js/start.js. */
+  const CZYSTE_ADRESY = location.protocol !== 'file:';
+
+  /** Ile poziomów w górę do korzenia serwisu — z podkatalogu języka jeden. */
+  const DO_KORZENIA = () => (LANG === DEFAULT_LANG ? '' : '../');
+
+  /** Z nazwy pliku robi adres strony w danym języku, zawsze względny:
+      'kosciol' / '../uk/kosciol' przez http, '../uk/kosciol.html' z dysku. */
   function adresStrony(plik, docelowyJezyk) {
     const cel = docelowyJezyk || LANG;
-    if (CZYSTE_ADRESY) {
-      const baza = cel === DEFAULT_LANG ? '/' : '/' + cel + '/';
-      return plik === 'index.html' ? baza : baza + plik.replace(/\.html$/, '');
-    }
-    // Z dysku: jeśli jesteśmy w podkatalogu języka, najpierw poziom wyżej.
-    const wyjscie = LANG === DEFAULT_LANG ? '' : '../';
+    const wyjscie = DO_KORZENIA();
     const wejscie = cel === DEFAULT_LANG ? '' : cel + '/';
-    return wyjscie + wejscie + plik;
+    if (plik === 'index.html' && CZYSTE_ADRESY) {
+      // Sam katalog wystarczy; pusty odnośnik byłby nieprawidłowy, stąd './'.
+      return (wyjscie + wejscie) || './';
+    }
+    return wyjscie + wejscie + (CZYSTE_ADRESY ? plik.replace(/\.html$/, '') : plik);
   }
 
   /** Ścieżka do pliku w assets/ — działa też z podkatalogu języka.
@@ -145,8 +152,7 @@
   function asset(sciezka) {
     if (!sciezka) return '';
     if (/^(https?:)?\/\//.test(sciezka) || sciezka.charAt(0) === '/') return sciezka;
-    if (CZYSTE_ADRESY) return '/' + sciezka;
-    return (LANG === DEFAULT_LANG ? '' : '../') + sciezka;
+    return DO_KORZENIA() + sciezka;
   }
 
   function href(key) {

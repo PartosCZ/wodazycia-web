@@ -38,10 +38,11 @@
     });
     /* Adresy serwisu działają bez końcówki .html (wodazycia.org/kosciol).
        Kto przyjdzie starym linkiem z .html, zobaczy czysty adres — strona się
-       przy tym nie przeładowuje. Poza domeną produkcyjną (z dysku, z lokalnego
-       serwera) końcówka zostaje, bo tam przeglądarka jej potrzebuje. */
+       przy tym nie przeładowuje. Po otwarciu pliku z dysku końcówka zostaje,
+       bo bez serwera przeglądarka bez niej pliku nie znajdzie.
+       Ta sama reguła co CZYSTE_ADRESY w assets/js/site.js. */
     var sciezka = adres.pathname;
-    if (/(^|\.)wodazycia\.org$/.test(location.hostname)) {
+    if (location.protocol !== 'file:') {
       var czysta = sciezka.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
       if (czysta !== sciezka) { sciezka = czysta; zmienione = true; }
     }

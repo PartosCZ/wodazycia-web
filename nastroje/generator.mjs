@@ -306,14 +306,21 @@ function wrocCSP(html) {
 }
 
 /* Odnośniki do stylów, skryptów i obrazków muszą działać też z katalogu
-   języka (/uk/kosciol), dlatego prowadzimy je tam od korzenia serwisu.
-   Polskie strony leżą wprost w katalogu głównym, więc u nich zostawiamy
-   krótki zapis — dzięki temu katalog da się otworzyć także z plików na dysku.
-   Wyjątkiem jest strona błędu: pokazuje się pod dowolnym adresem, więc
-   odnośników od korzenia potrzebuje zawsze. */
+   języka (/uk/kosciol), więc dopisujemy im wyjście poziom wyżej. Polskie
+   strony leżą wprost w katalogu głównym i zostają bez zmian.
+
+   Świadomie NIE prowadzimy ich od korzenia domeny ('/assets/…'): taki zapis
+   zakłada, że serwis leży w korzeniu, i rozsypuje się wszędzie indziej —
+   w podkatalogu na GitHub Pages albo po otwarciu katalogu z dysku.
+   Zapis względny działa w obu przypadkach, bo i '/uk/' i '/wodazycia-web/uk/'
+   mają ten sam poziom wyżej.
+
+   Wyjątkiem zostaje strona błędu: pokazuje się pod dowolnym adresem, więc
+   nie da się z góry policzyć, ile poziomów dzieli ją od korzenia. */
 function bezwzgledneSciezki(html, jezyk, jestBledna) {
-  if (jezyk === DOMYSLNY && !jestBledna) return html;
-  return html.replace(/(href|src)="assets\//g, '$1="/assets/');
+  if (jestBledna) return html.replace(/(href|src)="assets\//g, '$1="/assets/');
+  if (jezyk === DOMYSLNY) return html;
+  return html.replace(/(href|src)="assets\//g, '$1="../assets/');
 }
 
 /* ------------------------------------------------- podział tłumaczeń
