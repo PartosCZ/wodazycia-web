@@ -1,0 +1,15 @@
+# Windows zapisuje końce wierszy inaczej niż serwery. Bez tego pliku po każdym
+# pobraniu repozytorium na innym systemie git widziałby wszystkie pliki jako
+# zmienione. Tutaj ustalamy: w repozytorium zawsze LF, na dysku jak w systemie.
+* text=auto eol=lf
+
+# Pliki binarne — git ich nie tyka.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.pdf  binary
+*.woff  binary
+*.woff2 binary

@@ -1,0 +1,1361 @@
+/* ============================================================================
+   WODA ŻYCIA — WYGLĄD STRONY
+   ----------------------------------------------------------------------------
+   Wierne odwzorowanie dotychczasowej strony na WordPressie (motyw Impreza).
+   Wartości kolorów, rozmiarów i odstępów pochodzą z ustawień tamtego motywu,
+   więc strona wygląda tak samo, tylko bez WordPressa pod spodem.
+
+   Kolory, zaokrąglenia i szerokość treści zmienia się w sekcji :root niżej —
+   jedna wartość w jednym miejscu przechodzi przez cały serwis.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- krój pisma
+   Proxima Nova pobrana z dotychczasowego serwisu (kościół hostował ją sam
+   pod adresem /wp-content/uploads/fonts/). Gdyby kiedyś trzeba było ją
+   wymienić, wystarczy podmienić pliki w assets/fonts/ i zmienić --font
+   w sekcji :root — reszta arkusza tego nie zauważy. */
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/Proxima-Nova-Light.woff') format('woff');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/Proxima-Nova-Light-It.woff') format('woff');
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/Proxima-Nova-Reg.woff') format('woff');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/Proxima-Nova-Reg-It.woff') format('woff');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/Proxima-Nova-Bold.woff') format('woff');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/Proxima-Nova-Bold-It.woff') format('woff');
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+
+/* Proxima Nova nie zawiera cyrylicy — po ukraińsku i rosyjsku przeglądarka
+   spadłaby na przypadkowe pismo systemowe i strona wyglądałaby inaczej niż
+   w pozostałych ośmiu językach. Dokładamy więc Mulish (licencja SIL OFL,
+   krój zbliżony proporcjami), ale tylko w zakresie cyrylicy — dla łacinki
+   nadal używana jest Proxima Nova. */
+@font-face {
+  font-family: 'Mulish Cyrillic';
+  src: url('../fonts/Mulish-cyrillic.woff2') format('woff2');
+  font-weight: 300 700; font-style: normal; font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Mulish Cyrillic';
+  src: url('../fonts/Mulish-cyrillic-ext.woff2') format('woff2');
+  font-weight: 300 700; font-style: normal; font-display: swap;
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+/* -------------------------------------------------------------------- tokeny */
+:root {
+  /* „Mulish Cyrillic” działa tylko dla znaków cyrylicy (patrz unicode-range
+     wyżej) — dla łacinki przeglądarka i tak sięgnie po Proxima Nova. */
+  --font: 'Proxima Nova', 'Mulish Cyrillic', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+
+  /* Kolory — dokładnie te same co w ustawieniach motywu Impreza. */
+  --text:        #1c1c1c;   /* tekst i ciemne tła          */
+  --accent:      #00abd6;   /* cyjan: nagłówki, przyciski  */
+  --bg:          #ffffff;
+  --bg-alt:      #f3f3f3;   /* jasnoszare sekcje           */
+  --border:      #dddddd;
+  --faded:       #b6b8bd;   /* wyszarzony tekst pomocniczy */
+  --footer-bg:   #1c1c1c;   /* ciemny blok w stopce        */
+  /* Jasny pas musi być jaśniejszy niż szare logo (#e7e7e7), inaczej znak
+     zlewa się z tłem i w ogóle go nie widać. */
+  --subfooter-bg:      #f6f6f6;   /* jasny pas wokół ciemnego bloku */
+  --footer-bottom-bg:  #e7e7e7;   /* pasek z prawami autorskimi     */
+  --overlay:     rgba(27, 28, 30, .20);   /* przyciemnienie zdjęcia w nagłówku */
+
+  --wrap:        1300px;    /* szerokość treści             */
+  --header-h:    3.75rem;   /* 60 px — wysokość paska z oryginału */
+
+  --gap:         3.1875rem; /* 51 px — odstęp kolumn zdjęty z oryginału */
+  --pad-section: clamp(4rem, 9vmax, 9rem);  /* Impreza: height_huge */
+  --pad-tight:   clamp(2rem, 4vmax, 4rem);
+
+  --shadow:      0 5px 15px rgba(0, 0, 0, .15);
+  --ease:        .25s ease;
+
+  /* Wejście sekcji przy przewijaniu — zmierzone na dotychczasowej stronie:
+     przesunięcie o 85 px i wyraźne wyhamowanie na końcu (motyw Impreza). */
+  --reveal-shift: 85px;
+  --reveal-ease: cubic-bezier(.16, .84, .34, 1);
+}
+
+/* Od 1025 px motyw przestaje skalować odstęp sekcji i trzyma stałe 8,5rem
+   (136 px). Niżej rośnie płynnie z 9vmax — dokładnie jak na oryginale. */
+@media (min-width: 1025px) {
+  :root { --pad-section: 8.5rem; }
+}
+
+/* ---------------------------------------------------------------- podstawy */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 16px;              /* 1rem = 16px — skala nagłówków (5rem, 3rem…) */
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: .02em;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+img, svg, iframe { max-width: 100%; }
+img { height: auto; border: 0; display: block; }
+
+a { color: var(--text); text-decoration: none; transition: color var(--ease); }
+a:hover { color: var(--accent); }
+
+p { margin: 0 0 1.5rem; }
+p:last-child { margin-bottom: 0; }
+
+ul, ol { margin: 0 0 1.5rem; padding-left: 1.4rem; }
+li { margin-bottom: .4rem; }
+
+hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- nagłówki
+   Skala z motywu: h1 5rem, h2 3rem, h3 1.4rem, h4 1rem.
+   h1 i h2 są wersalikami, h3 nie. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1.5rem;
+  color: inherit;
+}
+
+h1 {
+  font-size: 5rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+h2 {
+  font-size: 3.1875rem;    /* 51 px — rozmiar zdjęty z oryginału */
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--accent);
+}
+h3 {
+  font-size: 1.4rem;
+  letter-spacing: .04em;
+}
+h4, h5, h6 {
+  font-size: 1rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  h1 { font-size: 3.5rem; }
+  h2 { font-size: 2.4rem; }
+}
+@media (max-width: 767px) {
+  /* Nagłówki podstron bywają jednym długim słowem — „UNTERSTÜTZEN”,
+     „FÖRSAMLINGEN”, „AKTUALNOŚCI”. Takie słowo nie ma gdzie się złamać,
+     więc przy stałym rozmiarze wystawało poza ekran 320 px. clamp() zmniejsza
+     je płynnie razem z szerokością okna. */
+  h1 { font-size: clamp(1.6rem, 6.5vw, 2.6rem); }
+  h2 { font-size: clamp(1.4rem, 5.5vw, 2rem); }
+  h3 { font-size: 1.25rem; }
+}
+
+/* Zabezpieczenie na wypadek jeszcze dłuższego słowa w przyszłości. */
+h1, h2, h3, .hero-title, .claim, .values { overflow-wrap: break-word; }
+
+/* Obrys zamiast wypełnienia — na dotychczasowej stronie klasa
+   .transparent-text. Używane w nagłówkach typu „HEJ! CZEŚĆ! WITAJ!”. */
+.outline,
+.outline-blue,
+.outline-dark {
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+}
+.outline       { -webkit-text-stroke-color: #fff; }
+.outline-blue  { -webkit-text-stroke-color: var(--accent); }
+.outline-dark  { -webkit-text-stroke-color: var(--text); }
+
+/* Przeglądarki bez -webkit-text-stroke pokazałyby pustkę — wtedy wracamy
+   do zwykłego, widocznego tekstu. */
+@supports not (-webkit-text-stroke: 1px black) {
+  .outline, .outline-blue, .outline-dark { color: inherit; }
+}
+
+/* Czarne tło pod fragmentem tekstu — klasa .highlight z dotychczasowej strony. */
+.highlight {
+  background: var(--text);
+  color: #fff;
+  padding: 0 .5rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ------------------------------------------------------------------ układ */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section       { padding: var(--pad-section) 0; }
+.section-tight { padding: var(--pad-tight) 0; }
+/* Część sekcji nie ma na oryginale dolnego odstępu — kolejna wnosi własny
+   górny i bez tego przerwa między nimi urosłaby o całe 136 px. */
+.section-flush { padding-bottom: 0; }
+.section-alt   { background: var(--bg-alt); }
+.section-dark  { background: var(--text); color: #fff; }
+.section-dark h2 { color: #fff; }
+
+/* Nagłówek drugiego poziomu w tekście ciągłym (polityka prywatności):
+   semantycznie h2, ale wielkością i kolorem jak h3 — sekcja prawna nie
+   potrzebuje trzycentymetrowych wersalików. */
+.h-sub {
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: var(--text);
+}
+
+.center { text-align: center; }
+.mt-1 { margin-top: .75rem; }
+.mt-2 { margin-top: 1.5rem; }
+.mt-3 { margin-top: 3rem; }
+.lead { font-size: 1.4rem; line-height: 1.5; }
+.muted { color: var(--faded); }
+.small { font-size: .9rem; }
+
+/* Dwie kolumny z odstępem; na tablecie i telefonie jedna pod drugą.
+   Proporcje odpowiadają siatkom motywu Impreza: cols_2-3, cols_3-2, cols_1-2. */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  align-items: center;
+}
+.split-2-3 { grid-template-columns: 2fr 3fr; }
+.split-3-2 { grid-template-columns: 3fr 2fr; }
+.split-1-2 { grid-template-columns: 1fr 2fr; }
+
+/* Kolumna ze zdjęciem ma sięgać od góry do dołu wiersza, a tekst obok
+   pozostaje wyśrodkowany w pionie (w motywie: valign_middle). */
+.split-stretch { align-items: stretch; }
+/* Na szerokim ekranie o wysokości zdjęcia decyduje wyłącznie sąsiedni tekst —
+   dolna granica 25rem z .photo-col zablokowałaby to przy krótszych wierszach
+   (np. „Jak żyjemy?”, gdzie oryginał ma 356 px) i zdjęcie stałoby w miejscu
+   mimo rozwijania akordeonu. */
+@media (min-width: 901px) {
+  .split-stretch .photo-col { min-height: 0; }
+}
+.split-stretch > *:not(.photo-col) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.split.reversed > *:first-child { order: 2; }
+@media (max-width: 900px) {
+  .split,
+  .split-2-3,
+  .split-3-2,
+  .split-1-2 { grid-template-columns: 1fr; }
+  .split.reversed > *:first-child { order: 0; }
+  /* Po zwinięciu do jednej kolumny zdjęcie ląduje nad tekstem —
+     w motywie robi to klasa „reversed” na siatce. */
+  .stack-photo-first > *:last-child { order: -1; }
+}
+
+/* Jasny panel pod tekstem, lekko opuszczony — strona Kids. */
+.panel-light {
+  background: var(--bg-alt);
+  padding: clamp(1.5rem, 5vw, 5rem);
+  position: relative;
+  top: 3rem;
+}
+@media (max-width: 900px) { .panel-light { top: 0; } }
+
+/* Kolumna wypełniona zdjęciem — w Impreza „stretched”. */
+.photo-col {
+  min-height: 25rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Wiersze „Pastor / Zespół liderów” na stronie Kościół. Na oryginale każdy
+   wiersz to jednolity pas koloru: pierwszy i trzeci jasnoszary, środkowy
+   ciemny — a zdjęcie przylega do tekstu bez przerwy, dlatego zerujemy odstęp
+   kolumn i odsuwamy dopiero sam tekst. */
+.people-row {
+  column-gap: 0;
+  background: var(--bg-alt);
+}
+.people-row > *:not(.photo-col):not(.photo-plain) { padding: 3.1875rem; }  /* 51 px */
+.people-row h3 { color: var(--accent); }
+.people-row.dark { background: var(--text); color: #fff; }
+.people-row.dark h3 { color: #fff; }
+.people-row.dark a { color: #fff; }
+.people-row.dark a:hover { color: var(--accent); }
+@media (max-width: 900px) {
+  .people-row > *:not(.photo-col):not(.photo-plain) { padding: clamp(1.5rem, 6vw, 3rem); }
+}
+
+/* „Stretched” w motywie znaczy, że kolumna ze zdjęciem wychodzi poza
+   kontener treści aż do krawędzi okna. Odległość od krawędzi kontenera
+   do krawędzi okna to połowa nadmiaru szerokości plus wewnętrzny odstęp
+   .wrap; na wąskim ekranie zostaje samo odsunięcie i zdjęcie zajmuje
+   pełną szerokość — dokładnie tak jak w oryginale. */
+.bleed-left,
+.bleed-right { --wyplyw: calc(max(0px, (100vw - var(--wrap)) / 2) + 1.5rem); }
+.bleed-left  { margin-left:  calc(-1 * var(--wyplyw)); }
+.bleed-right { margin-right: calc(-1 * var(--wyplyw)); }
+/* 100vw liczy się z paskiem przewijania, a treść bez niego — zdjęcie
+   wychodzące do krawędzi okna wystawało przez to o szerokość paska i strona
+   dostawała poziomy suwak. Nadmiar ucinamy na <main>: „clip” zamyka tylko oś
+   poziomą i nie robi z elementu kontenera przewijania. Na <body> nie można,
+   bo ustawienie przechodzi na okno i przestaje działać przyklejony nagłówek
+   (on leży poza <main>, więc tutaj nic mu nie grozi). */
+main { overflow-x: clip; }
+@media (max-width: 900px) {
+  .photo-col { min-height: 16rem; }
+  /* Portrety są pionowe — przy 16rem obcinałyby twarze. */
+  .split-stretch .photo-col { min-height: 22rem; }
+}
+
+/* Zdjęcie pokazywane w naturalnych proporcjach, bez przycinania —
+   w motywie zwykły element w-image, a nie tło kolumny. */
+.photo-plain {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Odnośnik „przejdź do treści” dla czytników ekranu i klawiatury. */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--accent);
+  color: #fff;
+  padding: .75rem 1.25rem;
+}
+.skip:focus { left: 0; color: #fff; }
+
+/* --------------------------------------------------------------- przyciski
+   Odpowiedniki us-btn-style_1 (cyjan) i us-btn-style_4 (biały). */
+.btn {
+  display: inline-block;
+  max-width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: .04em;
+  padding: .7em 2.8em;
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--ease), color var(--ease), border-color var(--ease);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #fff;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Wariant jasny. W motywie miał obramowanie przezroczyste, ale na białym tle
+   nie było widać, że to przycisk — dlatego cienka ramka w kolorze akcentu.
+   Kolory zostają te same. */
+.btn-light {
+  background: #fff;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-light:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+.btn-row.center { justify-content: center; }
+
+/* Na telefonie przyciski idą jeden pod drugim i zajmują całą szerokość.
+   Bez tego najdłuższe napisy — np. niemieckie „Aufzeichnungen früherer
+   Gottesdienste” czy węgierskie „Fizetés online a dotpay-en keresztül” —
+   nie zmieściłyby się na ekranie 320 px, a przy okazji trudno w tak wąski
+   przycisk trafić kciukiem. */
+@media (max-width: 600px) {
+  .btn { padding: .8em 1.25em; }
+  .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: .75rem;
+  }
+}
+
+/* --------------------------------------------------------------- nagłówek */
+/* Przyklejenie musi siedzieć na tym opakowaniu, nie na samym <header>.
+   Element „sticky” przesuwa się tylko w obrębie swojego rodzica, a #site-header
+   jest dokładnie tak wysoki jak nagłówek — pasek odjeżdżał więc z treścią,
+   choć na oryginale zostaje na wierzchu przez całą stronę. */
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header {
+  background: #fff;
+  transition: box-shadow var(--ease);
+}
+.header.scrolled { box-shadow: 0 1px 12px rgba(0, 0, 0, .08); }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: var(--header-h);
+}
+
+.brand { display: flex; align-items: center; flex: none; }
+/* 40 px — tyle mierzy logo na oryginale; przy 2,6rem pasek robił się wyższy
+   od tamtejszych 60 px. */
+.brand img { width: auto; height: 2.5rem; }
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-left: auto;
+}
+.nav a {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  padding: .35rem 0;
+}
+.nav a[aria-current="page"] { color: var(--accent); }
+
+/* W trakcie pomiaru, czy menu mieści się obok logo, chowamy je — inaczej
+   przez ułamek sekundy widać byłoby, jak się przestawia. */
+.header.measuring .nav { visibility: hidden; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: none;
+}
+
+/* ------------------------------------------------------- przełącznik języka */
+.lang { position: relative; }
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .06em;
+  padding: .4rem .6rem;
+  cursor: pointer;
+  transition: border-color var(--ease), color var(--ease);
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+.lang-btn svg { width: .8rem; height: .8rem; flex: none; }
+
+.lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + .4rem);
+  min-width: 12rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: .35rem;
+  display: none;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.lang.open .lang-menu { display: block; }
+
+.lang-menu button {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  width: 100%;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: .95rem;
+  color: var(--text);
+  text-align: left;
+  padding: .45rem .6rem;
+  cursor: pointer;
+}
+.lang-menu button:hover { background: var(--bg-alt); }
+.lang-menu button[aria-selected="true"] { color: var(--accent); font-weight: 700; }
+.lang-menu button i {
+  font-style: normal;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: .06em;
+  color: var(--faded);
+  width: 1.7rem;
+  flex: none;
+}
+.lang-menu button[aria-selected="true"] i { color: var(--accent); }
+
+/* ------------------------------------------------------------ menu mobilne */
+.burger {
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+  flex: none;
+}
+.burger span,
+.burger::before,
+.burger::after {
+  content: '';
+  position: absolute;
+  left: .4rem;
+  right: .4rem;
+  height: 2px;
+  background: var(--text);
+  transition: transform var(--ease), opacity var(--ease);
+}
+.burger::before { top: .8rem; }
+.burger span    { top: 1.2rem; }
+.burger::after  { top: 1.6rem; }
+
+body.menu-open .burger::before { transform: translateY(.4rem) rotate(45deg); }
+body.menu-open .burger span    { opacity: 0; }
+body.menu-open .burger::after  { transform: translateY(-.4rem) rotate(-45deg); }
+
+/* Menu zwija się do przycisku, kiedy pozycje nie mieszczą się obok logo.
+   Klasę nav-compact ustawia site.js po zmierzeniu szerokości — długość nazw
+   różni się między dziesięcioma językami, więc sztywna granica by nie wystarczyła. */
+body.nav-compact .burger { display: block; }
+body.nav-compact .nav {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  background: #fff;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 1rem 1.5rem 3rem;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform var(--ease);
+  margin: 0;
+}
+body.nav-compact.menu-open .nav { transform: translateX(0); }
+body.nav-compact .nav a {
+  font-size: 1.3rem;
+  padding: .9rem 0;
+  border-bottom: 1px solid var(--border);
+}
+body.menu-open { overflow: hidden; }
+
+/* Węższy nagłówek: najpierw znika przycisk obok menu, dopiero potem menu. */
+body.nav-tight .header-cta { display: none; }
+
+@media (max-width: 900px) {
+  .header-cta { display: none; }
+}
+
+/* ------------------------------------------------------------------- hero
+   Pełnoekranowe zdjęcie z powolnym przenikaniem trzech ujęć (na dotychczasowej
+   stronie robił to skrypt royalSlider — tutaj wystarczy animacja CSS). */
+/* Wysokość pasa powitalnego jest na oryginale stała, nie zależy od wysokości
+   okna: 346 px do 1024 px szerokości i 522 px wyżej. Wcześniejsze min(88vh,
+   46rem) robiło z niego prawie pełny ekran — o blisko 200 px za dużo. */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 21.625rem;        /* 346 px */
+  padding: var(--pad-section) 0;
+  overflow: hidden;
+  color: #fff;
+  background: var(--text);
+}
+@media (min-width: 1025px) {
+  .hero { min-height: 32.625rem; }   /* 522 px */
+}
+
+.hero-slides { position: absolute; inset: 0; }
+.hero-slides span {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: hero-fade 15s infinite;
+}
+.hero-slides span:nth-child(1) { animation-delay:  0s; opacity: 1; }
+.hero-slides span:nth-child(2) { animation-delay:  5s; }
+.hero-slides span:nth-child(3) { animation-delay: 10s; }
+
+@keyframes hero-fade {
+  0%      { opacity: 0; }
+  3%, 30% { opacity: 1; }
+  36%,100%{ opacity: 0; }
+}
+/* Kto ma w systemie ograniczone animacje, widzi tylko pierwsze zdjęcie. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slides span { animation: none; }
+  .hero-slides span:nth-child(1) { opacity: 1; }
+  .hero-slides span:nth-child(n+2) { opacity: 0; }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Nagłówek hero jest osobno, bo ma inną skalę niż zwykłe h1 na podstronach.
+   Rozmiary zdjęte z oryginału: 85 px od 1025 px wzwyż, 51 px niżej. */
+.hero-title {
+  font-size: 3.1875rem;         /* 51 px */
+  line-height: 1;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #fff;
+  margin: 0 0 1.875rem;         /* 30 px — odstęp do przycisku jak w oryginale */
+}
+@media (min-width: 1025px) { .hero-title { font-size: 5.3125rem; } }  /* 85 px */
+/* „WILLKOMMEN!”, „ÜDVÖZLÜNK!”, „BIENVENIDO!” to pojedyncze długie słowa —
+   przy stałych 3 rem nie mieściły się na wąskim telefonie. */
+@media (max-width: 767px)  { .hero-title { font-size: clamp(1.9rem, 8vw, 3rem); } }
+
+/* Tytuł strony ukryty wzrokowo, ale czytany przez wyszukiwarki i czytniki
+   ekranu — tak samo jak na dotychczasowej stronie. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------- nagłówek podstrony
+   Tytuł na zdjęciu — Kościół, Kids, Aktualności, Wspieram, Kontakt. */
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 27.125rem;      /* 434 px — wysokość pasa nagłówkowego z oryginału */
+  padding: var(--pad-section) 0;
+  text-align: center;
+  color: #fff;
+  background: var(--text) center / cover no-repeat;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+}
+.page-hero .wrap { position: relative; z-index: 1; }
+.page-hero h1 { color: #fff; margin: 0; }
+@media (max-width: 767px) { .page-hero { min-height: 16rem; } }
+
+/* ----------------------------------------------- sekcja ze zdjęciem w tle
+   Odpowiednik sekcji z mapą Koszalina pod „Wpadnij do nas”: zdjęcie
+   przykryte białym gradientem, żeby tekst pozostał czytelny. */
+.section-map {
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.section-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Domyślnie jak na stronie głównej: mapa prześwituje u dołu sekcji. */
+  background: var(--zaslona,
+    linear-gradient(0deg, rgba(255,255,255,.8) 20%, rgba(255,255,255,1) 80%));
+}
+/* Wariant ze strony Kościół — mapa prześwituje pośrodku, góra i dół białe. */
+.section-map-srodek {
+  --zaslona: linear-gradient(0deg,
+    rgba(255,255,255,1) 2%, rgba(255,255,255,.8) 20%,
+    rgba(255,255,255,.8) 60%, rgba(255,255,255,1) 80%);
+}
+.section-map > .wrap { position: relative; z-index: 1; }
+
+/* --------------------------------------------------------- wiersz z ikoną
+   Godzina spotkania, adres, telefon, e-mail, odnośniki do plików. */
+.iconrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}
+.iconrow.left { justify-content: flex-start; }
+
+.iconbox {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  font-weight: 700;
+}
+.iconbox svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  color: var(--accent);
+  margin-top: .15rem;
+}
+.iconbox.contrast svg { color: currentColor; }
+.iconbox p { margin: 0; font-weight: 400; }
+.iconbox a { font-weight: 700; }
+
+@media (max-width: 767px) {
+  .iconrow { flex-direction: column; align-items: center; gap: 1.5rem; }
+  .iconrow.left { align-items: flex-start; }
+  .iconbox { flex-direction: column; align-items: center; text-align: center; gap: .4rem; }
+  .iconrow.left .iconbox { flex-direction: row; align-items: flex-start; text-align: left; }
+}
+
+/* ------------------------------------------------------------ ciemny panel
+   Biały tekst na czarnym tle ze znakiem wodnym logo — na dotychczasowej
+   stronie akapit wprowadzający na stronach Kościół, Kids i Pierwszy raz. */
+/* Wodoznak logo w prawym dolnym rogu. W oryginale jest ledwie widoczny —
+   biały znak przygaszony do kilku procent, przez co czyta się jak delikatna
+   faktura, a nie jak drugi obrazek. Dlatego leży w warstwie ::after
+   z własną przezroczystością, a nie jako zwykłe tło. */
+.panel-dark {
+  position: relative;
+  overflow: hidden;
+  background: var(--text);
+  color: #fff;
+  /* Odstępy zdjęte z oryginału: 85 px u góry i u dołu, 289 px po bokach.
+     Te szerokie marginesy trzymają tekst z dala od wodoznaku logo
+     w prawym dolnym rogu i to one wyznaczają szerokość akapitu. */
+  padding: 5.3125rem clamp(1.5rem, 20vw, 18.0625rem);
+  /* Panel jest lekko wsunięty od prawej krawędzi — tak jak w motywie. */
+  margin-right: 3rem;
+  text-align: center;
+  /* Na oryginale to zwykły tekst treści, nie powiększony — przy 1,4rem
+     akapit rozpychał panel o dwa wiersze. */
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.panel-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../img/logo-white.png') no-repeat 105% 120% / 360px;
+  opacity: .09;
+  pointer-events: none;
+}
+/* Treść musi zostać nad wodoznakiem. */
+.panel-dark > * { position: relative; z-index: 1; }
+
+/* Bez tego odnośniki (telefon, e-mail) wzięłyby domyślny ciemny kolor
+   i zniknęłyby na czarnym tle. */
+.panel-dark a { color: #fff; }
+.panel-dark a:hover { color: var(--accent); }
+
+/* Na węższych ekranach panel wraca do pełnej szerokości — tak jak w motywie. */
+@media (max-width: 900px) { .panel-dark { padding: 2.5rem; margin-right: 0; font-size: 1.15rem; } }
+@media (max-width: 600px) { .panel-dark::after { background-size: 220px; } }
+
+/* Odstęp nad hasłem — w motywie kolumna z padding-top 8rem / 9vmax. */
+.claim-block { padding-top: clamp(3rem, 9vmax, 8rem); }
+
+/* Cytat „Mam w tym mieście wielki lud” — duży, wersaliki, z podpisem. */
+.claim {
+  font-size: 3.1875rem;    /* 51 px, interlinia 76,5 px — jak na oryginale */
+  line-height: 1.5;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  text-align: center;
+  margin: 0;
+}
+.claim-source {
+  text-align: right;
+  margin: .75rem 0 0;
+  color: var(--faded);
+}
+@media (max-width: 900px) { .claim { font-size: 2rem; } }
+@media (max-width: 600px) { .claim { font-size: 1.5rem; } }
+
+/* Lista wartości — słowa na przemian pełne i konturowe. */
+.values {
+  font-size: 3.1875rem;    /* 51 px, interlinia 1,2 — jak na oryginale */
+  line-height: 1.2;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--accent);
+  margin: 0;
+}
+.values span { display: block; }
+
+/* Blok „Wartości”: tekst siedzi na jasnym panelu z odstępem 85 px, zdjęcie
+   obok sięga tej samej wysokości. Samo słowo „Wartości” jest tu ciemne,
+   nie w kolorze akcentu jak pozostałe nagłówki drugiego stopnia. */
+.panel-values {
+  background: var(--bg-alt);
+  padding: 5.3125rem;      /* 85 px */
+}
+.panel-values h2 { color: var(--text); }
+@media (max-width: 900px) {
+  .panel-values { padding: clamp(1.5rem, 6vw, 3.5rem); }
+}
+@media (max-width: 900px) { .values { font-size: 2rem; } }
+
+/* ------------------------------------------------------------------ wideo
+   Odtwarzacz YouTube wstawia się dopiero po kliknięciu. Dzięki temu strona
+   ładuje się szybciej, a YouTube do tego czasu nie wie o odwiedzającym. */
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--text) center / cover no-repeat;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.video-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(27, 28, 30, .25);
+  transition: background var(--ease);
+}
+.video:hover .video-play { background: rgba(27, 28, 30, .4); }
+.video-play svg { width: 5rem; height: 5rem; color: #fff; }
+
+/* ------------------------------------------------------- karty podcastów
+   Zdjęcie obok czarnego panelu z tekstem i ikonami serwisów. */
+/* Wiersz z podcastem: kwadratowe zdjęcie (1:3 szerokości) i tekst obok, a pod
+   spodem jednolity pas w kolorze — na oryginale pierwszy wiersz jest ciemny,
+   drugi jasnoszary. Odstęp 51 px odsłania ten pas między zdjęciem a tekstem,
+   dlatego tło siedzi na całym wierszu, a nie na samej kolumnie z tekstem. */
+.podcast {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  column-gap: 3.1875rem;        /* 51 px */
+  align-items: stretch;
+  background: var(--text);
+  color: #fff;
+}
+.podcast-img {
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+}
+.podcast-body {
+  /* Oryginał zawęża tekst do 70% kolumny — bez tego zdanie szłoby przez całą
+     szerokość ekranu i wiersz byłby nie do przeczytania. */
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.podcast-body p { font-size: 1.4rem; line-height: 1.4; }
+.podcast-body a { color: inherit; }
+.podcast-body a:hover { color: var(--accent); }
+.podcast.reversed .podcast-img { order: 2; }
+/* Drugi wiersz („nauczania archiwalne”) jest na jasnym pasie. */
+.podcast.light { background: var(--bg-alt); color: var(--text); }
+
+.services { display: flex; gap: 1.5rem; align-items: center; }
+.services a { display: inline-flex; }
+.services svg { width: 2rem; height: 2rem; }
+
+@media (max-width: 900px) {
+  .podcast { grid-template-columns: 1fr; column-gap: 0; }
+  .podcast.reversed .podcast-img { order: 0; }
+  /* Po złożeniu w pion pas koloru zostaje tylko pod tekstem, więc wraca
+     wewnętrzny odstęp — inaczej tekst dotykałby krawędzi. */
+  .podcast-body { max-width: none; padding: clamp(2rem, 5vw, 3rem); }
+  .podcast-body p { font-size: 1.15rem; }
+}
+
+/* ------------------------------------------------------------ aktualności */
+/* Karta leży poziomo: tekst po lewej, kwadratowe zdjęcie po prawej — tak jak
+   na dotychczasowej stronie. Kolumna musi więc być znacznie szersza niż przy
+   układzie pionowym, bo mieści dwie połówki obok siebie; przy 20rem tekst
+   dostałby 10rem i łamałby się po dwa słowa.
+   min() jest tu konieczne: samo minmax(34rem, 1fr) wymusiłoby kolumnę
+   szerokości 544 px także wtedy, gdy ekran ma mniej — i karta wystawałaby
+   poza stronę. Z min(…, 100%) kolumna nigdy nie przekroczy szerokości
+   kontenera. */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(34rem, 100%), 1fr));
+  gap: var(--gap);
+}
+
+/* Karta nie ma własnego tła ani ramki: na stronie głównej sekcja jest szara
+   i biały prostokąt sterczałby pod krótszym wpisem. Wpis ma się czytać jak
+   wiersz treści, nie jak kafelek — tak samo jak na dotychczasowej stronie. */
+.news-card {
+  display: flex;
+  /* Zdjęcie trzyma kwadrat, tekst ma własną wysokość — bez flex-start
+     rozciągnięcie do wysokości karty zepsułoby proporcję 1:1. */
+  align-items: flex-start;
+}
+/* Karta bywa odnośnikiem (wpis z `link` w content.js) — wtedy po najechaniu
+   nagłówek dostaje kolor akcentu. Ramki ani cienia tu nie ma, więc zwykły
+   box-shadow nie miałby czego obrysować. */
+a.news-card:hover h2,
+a.news-card:hover h3 { color: var(--accent); }
+
+/* W HTML zdjęcie stoi przed tekstem (czytnik ekranu poda najpierw opis
+   obrazka, potem treść), wizualnie ma jednak być po prawej — stąd order. */
+.news-card .news-img {
+  order: 2;
+  flex: 0 0 50%;
+  /* Grafiki wydarzeń są kwadratowe (plakat z tekstem od góry do dołu).
+     Przy 16/9 obcinało się 44% wysokości i plakat stawał się nieczytelny. */
+  aspect-ratio: 1 / 1;
+  background: var(--bg-alt) center / cover no-repeat;
+}
+.news-card .news-body {
+  flex: 1 1 50%;
+  min-width: 0;          /* bez tego jedno długie słowo rozepchnęłoby kolumnę */
+  /* Odstęp tylko od strony zdjęcia — z lewej i z góry tekst ma trzymać
+     krawędź kolumny, tak jak reszta treści na stronie. */
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: baseline;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.news-meta .tag { color: var(--accent); font-weight: 700; }
+.news-meta time { color: var(--faded); }
+/* Nagłówek karty bywa h3 (strona główna) albo h2 (strona Aktualności) —
+   wygląda tak samo, różni się tylko poziomem w strukturze dokumentu. */
+.news-card h2,
+.news-card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: var(--text);
+  transition: color var(--ease);
+}
+/* Oryginał skraca zajawkę wielokropkiem, żeby kolumna tekstu nie była wyższa
+   niż kwadratowe zdjęcie obok. Robimy to samo, tylko po stronie przeglądarki —
+   dzięki temu skrót dopasowuje się do szerokości karty, a w źródle strony
+   (i dla wyszukiwarek) zostaje cały tekst. Sześć wierszy to tyle, ile mieści
+   się obok zdjęcia po odjęciu metryczki i nagłówka. */
+.news-card p {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  overflow: hidden;
+}
+/* Po złożeniu karty w pion (telefon) zdjęcie już nie ogranicza wysokości,
+   więc zajawka może być cała. */
+@media (max-width: 600px) {
+  .news-card p { -webkit-line-clamp: none; line-clamp: none; display: block; overflow: visible; }
+}
+
+/* Na telefonie obie połówki miałyby po ~9rem — za mało i na zdjęcie,
+   i na tekst. Karta wraca więc do układu pionowego: kwadratowe zdjęcie
+   na górze (order wraca do naturalnego), tekst pod nim. */
+@media (max-width: 600px) {
+  .news-card { flex-direction: column; }
+  .news-card .news-img {
+    order: 0;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .news-card .news-body {
+    flex: 1 1 auto;
+    width: 100%;
+    /* Odstęp wędruje spod zdjęcia; z boków trzyma go już .wrap. */
+    padding: 1.5rem 0 0;
+  }
+}
+
+/* ------------------------------------------------------------- akordeon
+   „Najczęstsze pytania” oraz „Jak żyjemy / Co robimy / Jak zwyciężamy”. */
+.accordion { border-top: 1px solid var(--border); }
+
+.accordion-item { border-bottom: 1px solid var(--border); }
+
+.accordion-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--text);
+  text-align: left;
+  padding: 1.25rem 0;
+  cursor: pointer;
+  transition: color var(--ease);
+}
+.accordion-btn:hover { color: var(--accent); }
+
+/* Znak plus, który po otwarciu zamienia się w minus. */
+.accordion-btn .sign {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  color: var(--accent);
+}
+.accordion-btn .sign::before,
+.accordion-btn .sign::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+  transition: transform var(--ease), opacity var(--ease);
+}
+.accordion-btn .sign::before { left: 0; right: 0; top: .45rem; height: 2px; }
+.accordion-btn .sign::after  { top: 0; bottom: 0; left: .45rem; width: 2px; }
+.accordion-btn[aria-expanded="true"] .sign::after { transform: rotate(90deg); opacity: 0; }
+
+.accordion-panel { padding: 0 0 1.5rem; }
+.accordion-panel[hidden] { display: none; }
+.accordion-panel p:last-child { margin-bottom: 0; }
+
+@media (max-width: 767px) { .accordion-btn { font-size: 1.15rem; } }
+
+/* ----------------------------------------------------------------- zakładki
+   „W co wierzymy?” — na szerokim ekranie poziome zakładki, na wąskim
+   akordeon (dokładnie jak na dotychczasowej stronie). */
+.tabs-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+.tabs-nav button {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  padding: .4rem 0;
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease);
+}
+.tabs-nav button:hover { color: var(--accent); }
+.tabs-nav button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Szerokość kolumny tekstu zdjęta z oryginału: 892 px. Przy 46rem (736 px)
+   opis wiary łamał się o dwa wiersze wcześniej niż na dotychczasowej stronie. */
+.tab-panel { max-width: 55.75rem; margin: 0 auto; text-align: center; }
+.tab-panel[hidden] { display: none; }
+.tab-panel h3 { color: var(--accent); }
+.tab-panel .verses { color: var(--faded); margin-top: 1rem; }
+
+@media (max-width: 900px) {
+  .tabs-nav { display: none; }
+}
+/* Na wąskim ekranie akordeon; na szerokim zakładki. */
+.tabs-accordion { display: none; }
+@media (max-width: 900px) {
+  .tabs-accordion { display: block; }
+  .tabs-panels { display: none; }
+}
+
+/* --------------------------------------------------------------- wyznanie
+   Skład apostolski — wyśrodkowany, wers po wersie. */
+.creed {
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2;
+}
+.creed p { margin: 0; }
+
+/* --------------------------------------------------------------- formularz */
+.field { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.5rem; }
+.field label { font-size: .9rem; font-weight: 700; }
+
+input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--bg-alt);
+  border: 0;
+  padding: .8rem;
+  min-height: 2.8rem;
+  width: 100%;
+  border-radius: 0;
+}
+textarea { min-height: 9rem; resize: vertical; }
+
+.consent {
+  display: flex;
+  gap: .65rem;
+  align-items: flex-start;
+  font-size: .9rem;
+  margin-bottom: 1.5rem;
+}
+.consent input { margin-top: .3rem; width: auto; flex: none; }
+
+.form-note { font-size: .9rem; color: var(--faded); }
+
+/* ------------------------------------------------------------------- mapa */
+.map { width: 100%; }
+
+.map-frame {
+  aspect-ratio: 16 / 7;
+  min-height: 18rem;
+  background: var(--bg-alt);
+  width: 100%;
+}
+.map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* Przyciski nawigacji i opis dojazdu trzymamy w kontenerze treści,
+   sama mapa idzie na całą szerokość. */
+.map-actions {
+  max-width: var(--wrap);
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+}
+
+/* Ostatnie sto metrów — droga wewnętrzna z rozwidleniem. Żadna nawigacja
+   tego nie powie, a bez tego kierowca skręca w złą odnogę. */
+.map-approach {
+  max-width: 44rem;
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+  text-align: center;
+  color: var(--faded);
+  font-size: .95rem;
+}
+@media (max-width: 600px) {
+  .map-frame { aspect-ratio: 4 / 3; }
+}
+
+/* ------------------------------------------------------- numery kont / dary */
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: 1.5rem 3rem;
+}
+.account h3 { margin-bottom: .25rem; }
+.account p {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  /* Numer konta ma 32 znaki — na wąskim ekranie musi mieć prawo się złamać,
+     inaczej wystaje poza obrys strony. */
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .account p { font-size: .95rem; }
+}
+
+/* --------------------------------------------------------------- stopka
+   Układ z dotychczasowej strony: jasny pas, po lewej duży szary znak „W”,
+   po prawej ciemny blok wysunięty do góry, a w nim trzy kolumny odnośników. */
+.footer-main {
+  background: var(--subfooter-bg);
+  padding: var(--pad-section) 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr;      /* w motywie cols_1-3 */
+  gap: 3rem;
+  align-items: center;
+}
+
+.footer-logo { margin-top: 1rem; }
+.footer-logo img { max-width: 60%; height: auto; }
+
+/* Ciemny blok wchodzi 8rem w sekcję powyżej — stąd ujemny margines. */
+.footer-box {
+  background: var(--footer-bg);
+  color: rgba(255, 255, 255, .85);
+  margin-top: -8rem;
+  padding: 3rem;
+}
+.footer-box a { color: rgba(255, 255, 255, .85); }
+.footer-box a:hover { color: #fff; }
+
+.footer-name {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.footer-cols ul { list-style: none; margin: 0; padding: 0; }
+.footer-cols li { margin-bottom: .5rem; }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-logo { max-width: 14rem; margin-inline: auto; }
+  .footer-logo img { max-width: 100%; }
+  .footer-box { margin-top: 0; padding: 2rem; }
+}
+@media (max-width: 600px) {
+  .footer-cols { grid-template-columns: 1fr; }
+}
+
+.socials { display: flex; gap: 1rem; margin-top: 1.25rem; }
+@media (max-width: 767px) { .socials { justify-content: center; } }
+.socials a { display: inline-flex; }
+.socials svg { width: 1.5rem; height: 1.5rem; }
+
+/* Dolny pasek z prawami autorskimi i adresem. */
+.footer-bottom {
+  background: var(--footer-bottom-bg);
+  padding: 1.5rem 0;
+  font-size: .85rem;
+  color: var(--faded);
+}
+.footer-bottom .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  justify-content: space-between;
+}
+@media (max-width: 767px) {
+  .footer-bottom .wrap { justify-content: center; text-align: center; }
+}
+
+/* ------------------------------------------------------------ pojawianie się
+   Delikatne wejście sekcji przy przewijaniu. Bez JavaScriptu (i przy
+   wyłączonych animacjach w systemie) treść jest po prostu od razu widoczna. */
+/* Wartości zmierzone na dotychczasowej stronie: treść wjeżdża o 85 px
+   i przez ok. 0,7 s wyraźnie wyhamowuje (motyw Impreza, animacje „afb”
+   i „afl”). Domyślnie od dołu — tak wchodzi siatka aktualności i stopka. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+  transition: opacity .7s var(--reveal-ease), transform .7s var(--reveal-ease);
+}
+/* Wejście z lewej — wiersze z podcastami w „Zainspiruj się!” oraz wiersze
+   z portretami na stronie Kościół. */
+[data-reveal="left"]  { transform: translateX(calc(-1 * var(--reveal-shift))); }
+[data-reveal="right"] { transform: translateX(var(--reveal-shift)); }
+[data-reveal].shown { opacity: 1; transform: none; }
+.no-js [data-reveal],
+html:not(.js) [data-reveal] { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* --------------------------------------------------------------- drukowanie */
+@media print {
+  .header, .footer, .burger, .lang, .skip, .video, .map { display: none !important; }
+  body { color: #000; font-size: 12pt; }
+  .page-hero, .hero { min-height: 0; color: #000; background: none; padding: 1rem 0; }
+  .page-hero::after, .hero::after, .hero-slides { display: none; }
+  [data-reveal] { opacity: 1; transform: none; }
+}

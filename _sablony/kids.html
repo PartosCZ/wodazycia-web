@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self' https://ssl.dotpay.pl https://www.paypal.com; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.openstreetmap.org; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script src="assets/js/start.js"></script>
+<title>Kids | Woda Życia — Koszalin</title>
+<meta name="description" content="Zajęcia dla dzieci w wieku 4–9 lat w każdą niedzielę. Sala zabaw i przewijak dla najmłodszych.">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://wodazycia.org/kids">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kościół Woda Życia">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:url" content="https://wodazycia.org/kids">
+<meta property="og:title" content="Kids | Woda Życia — Koszalin">
+<meta property="og:description" content="Zajęcia dla dzieci w wieku 4–9 lat w każdą niedzielę. Sala zabaw i przewijak dla najmłodszych.">
+<meta property="og:image" content="https://wodazycia.org/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kids | Woda Życia — Koszalin">
+<meta name="twitter:description" content="Zajęcia dla dzieci w wieku 4–9 lat w każdą niedzielę.">
+<meta name="twitter:image" content="https://wodazycia.org/assets/img/og-image.jpg">
+<link rel="alternate" hreflang="pl" href="https://wodazycia.org/kids">
+<link rel="alternate" hreflang="x-default" href="https://wodazycia.org/kids">
+<link rel="icon" href="assets/img/favicon.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
+<!-- Wczytanie z wyprzedzeniem: krój pisma i największe zdjęcie nad zgięciem.
+     Tło sekcji ustawia JavaScript, więc bez tej podpowiedzi przeglądarka
+     dowiedziałaby się o nim dopiero po wykonaniu skryptów. -->
+<link rel="preload" as="font" type="font/woff" href="assets/fonts/Proxima-Nova-Reg.woff" crossorigin>
+<link rel="preload" as="font" type="font/woff" href="assets/fonts/Proxima-Nova-Bold.woff" crossorigin>
+<link rel="preload" as="image" href="assets/img/kids-1.webp" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="kids" data-meta="kids">
+<a class="skip" href="#main" data-i18n="ui.skip">Przejdź do treści</a>
+<div id="site-header"></div>
+
+<main id="main">
+
+  <section class="page-hero" data-bg="assets/img/kids-1.webp">
+    <div class="wrap">
+      <h1 data-i18n="kids.h1"></h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" data-reveal>
+      <div class="panel-dark">
+        <p data-i18n="kids.intro"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------ NIEDZIELA Z KIDS -->
+  <section class="section">
+    <div class="wrap">
+      <!-- Tekst na jasnym panelu po lewej (3 części), zdjęcie po prawej
+           (2 części) wypływające do krawędzi okna. -->
+      <div class="split split-3-2 split-stretch stack-photo-first">
+        <div class="panel-light" data-reveal>
+          <h2 data-i18n-split="kids.sunday.h2" data-outline="outline-dark"></h2>
+          <p class="mt-2" data-i18n="kids.sunday.p1"></p>
+          <!-- Godziny zapisu bierzemy z content.js → kidsCheckIn. -->
+          <p><span data-i18n="kids.sunday.p2"></span> <strong id="kids-checkin"></strong></p>
+          <p data-i18n="kids.sunday.p3"></p>
+          <div class="iconrow left mt-3" data-docs="kids"></div>
+        </div>
+        <div class="photo-col bleed-right" data-bg="assets/img/kids-5.webp" role="presentation"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/content.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

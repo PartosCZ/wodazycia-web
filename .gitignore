@@ -1,0 +1,19 @@
+# Systemowe
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Edytory
+.vscode/
+.idea/
+.claude/
+*.swp
+*~
+
+# Nic tu nie instalujemy, ale gdyby kiedyś ktoś spróbował
+node_modules/
+package-lock.json
+
+# Robocze
+*.log
+_robocze/

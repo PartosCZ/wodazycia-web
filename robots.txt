@@ -1,0 +1,13 @@
+# Kościół Woda Życia — reguły dla robotów wyszukiwarek
+# Wszystko jest otwarte poza polityką prywatności i stroną błędu,
+# które nie mają czego szukać w wynikach wyszukiwania.
+
+User-agent: *
+Allow: /
+Disallow: /polityka-prywatnosci
+Disallow: /*/polityka-prywatnosci
+Disallow: /404.html
+
+# Spis adresów wszystkich stron we wszystkich dziesięciu językach.
+# Tworzy go nastroje/generator.mjs — ręcznie się go nie edytuje.
+Sitemap: https://wodazycia.org/sitemap.xml

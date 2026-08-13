@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Uwaga: form-action pozwala wysłać formularz do Dotpay i PayPal.
+     Bez tych dwóch adresów przeglądarka zablokowałaby płatność. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self' https://ssl.dotpay.pl https://www.paypal.com; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.openstreetmap.org; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script src="assets/js/start.js"></script>
+<title>Wspieram | Woda Życia — Koszalin</title>
+<meta name="description" content="Jak wesprzeć kościół: płatność online, PayPal albo tradycyjny przelew bankowy.">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://wodazycia.org/wspieram">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kościół Woda Życia">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:url" content="https://wodazycia.org/wspieram">
+<meta property="og:title" content="Wspieram | Woda Życia — Koszalin">
+<meta property="og:description" content="Jak wesprzeć kościół: płatność online, PayPal albo tradycyjny przelew bankowy.">
+<meta property="og:image" content="https://wodazycia.org/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wspieram | Woda Życia — Koszalin">
+<meta name="twitter:description" content="Jak wesprzeć kościół: płatność online, PayPal albo tradycyjny przelew bankowy.">
+<meta name="twitter:image" content="https://wodazycia.org/assets/img/og-image.jpg">
+<link rel="alternate" hreflang="pl" href="https://wodazycia.org/wspieram">
+<link rel="alternate" hreflang="x-default" href="https://wodazycia.org/wspieram">
+<link rel="icon" href="assets/img/favicon.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
+<!-- Wczytanie z wyprzedzeniem: krój pisma i największe zdjęcie nad zgięciem.
+     Tło sekcji ustawia JavaScript, więc bez tej podpowiedzi przeglądarka
+     dowiedziałaby się o nim dopiero po wykonaniu skryptów. -->
+<link rel="preload" as="font" type="font/woff" href="assets/fonts/Proxima-Nova-Reg.woff" crossorigin>
+<link rel="preload" as="font" type="font/woff" href="assets/fonts/Proxima-Nova-Bold.woff" crossorigin>
+<link rel="preload" as="image" href="assets/img/naglowek-wspieram.webp" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="give" data-meta="give">
+<a class="skip" href="#main" data-i18n="ui.skip">Przejdź do treści</a>
+<div id="site-header"></div>
+
+<main id="main">
+
+  <section class="page-hero" data-bg="assets/img/naglowek-wspieram.webp">
+    <div class="wrap">
+      <h1 data-i18n="give.h1"></h1>
+    </div>
+  </section>
+
+  <!-- --------------------------------------------------- PŁATNOŚĆ ONLINE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+
+        <div data-reveal>
+          <h2 data-i18n="give.dotpay.h2"></h2>
+          <p class="mt-2" data-i18n="give.dotpay.p"></p>
+          <p><strong data-i18n="give.dotpay.howto"></strong></p>
+          <p data-i18n="give.dotpay.s1"></p>
+          <p data-i18n="give.dotpay.s2"></p>
+          <p data-i18n="give.dotpay.s3"></p>
+
+          <!-- Formularz przekazuje płatność do Dotpay. Identyfikator sklepu
+               i adres powrotny są w content.js → giving; wstawia je site.js. -->
+          <form class="mt-2" action="https://ssl.dotpay.pl/" method="post" target="_parent" id="dotpay-form">
+            <div class="field">
+              <label for="d-purpose" data-i18n="give.dotpay.purpose"></label>
+              <input id="d-purpose" name="description" type="text">
+            </div>
+            <div class="field">
+              <label for="d-amount" data-i18n="give.dotpay.amount"></label>
+              <input id="d-amount" name="amount" type="text" inputmode="decimal">
+            </div>
+            <button class="btn btn-primary" type="submit" data-i18n="give.dotpay.pay"></button>
+          </form>
+        </div>
+
+        <div data-reveal>
+          <img src="assets/img/paypal.png" alt="PayPal" width="200" height="53" data-asset="assets/img/paypal.png">
+          <p class="mt-2" data-i18n="give.paypal.p"></p>
+          <!-- Przycisk „Przekaż darowiznę”. Identyfikator w content.js → giving.
+               Gotowy obrazek PayPala jest tylko po polsku, więc na dziewięciu
+               pozostałych wersjach językowych wyglądałby jak niedokończone
+               tłumaczenie. Zamiast niego zwykły przycisk w kolorach strony
+               z napisem z i18n. -->
+          <form class="mt-2" action="https://www.paypal.com/donate" method="post" target="_top" id="paypal-form">
+            <button class="btn btn-primary" type="submit" data-i18n="give.paypal.button"></button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------ PRZELEW BANKOWY -->
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="split split-2-3 split-stretch">
+        <div class="photo-col bleed-left" data-bg="assets/img/tlo-wspieram.webp" role="presentation"></div>
+        <div data-reveal>
+          <h2 data-i18n="give.bank.h2"></h2>
+          <div class="accounts mt-3" id="accounts"></div>
+
+          <h3 class="mt-3" data-i18n="give.bank.recipient"></h3>
+          <p id="giving-recipient"></p>
+
+          <p class="mt-3" data-i18n="give.bank.taxNote"></p>
+
+          <div class="iconrow left mt-3" data-docs="give"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/content.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
