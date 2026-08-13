@@ -744,12 +744,15 @@ body.nav-tight .header-cta { display: none; }
 /* Wysokość pasa powitalnego jest na oryginale stała, nie zależy od wysokości
    okna: 346 px do 1024 px szerokości i 522 px wyżej. Wcześniejsze min(88vh,
    46rem) robiło z niego prawie pełny ekran — o blisko 200 px za dużo. */
+/* Tak samo jak pas nagłówkowy podstron: zdjęcia sięgają pod pasek nagłówka,
+   bo to od wysokości całego pola zależy, jaki wycinek zdjęcia widać. */
 .hero {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--pad-section) 0;
+  margin-top: calc(-1 * var(--header-h));
+  padding: calc(var(--pad-section) + var(--header-h)) 0 var(--pad-section);
   overflow: hidden;
   color: #fff;
   background: var(--text);
@@ -831,13 +834,23 @@ body.nav-tight .header-cta { display: none; }
 /* Wysokości tego pasa nie ustawia się na sztywno: w oryginale wynika ona
    z odstępu sekcji nad i pod tytułem (8rem albo 9vmax) plus jeden wiersz
    nagłówka. Dzięki temu pas maleje razem z oknem tak samo jak tam —
-   434 px przy 1600 px szerokości, 306 px przy 1024 px, 273 px na telefonie. */
+   434 px przy 1600 px szerokości, 306 px przy 1024 px, 273 px na telefonie.
+
+   Zdjęcie sięga aż pod pasek nagłówka, dokładnie jak na dotychczasowej
+   stronie, gdzie pasek jest przyklejony na wierzchu, a sekcja zaczyna się
+   pod nim dopiero swoim odstępem wewnętrznym. To nie jest drobiazg: przy
+   „cover” o kadrze decyduje kształt całego pola, więc pole niższe o wysokość
+   paska dawało inny wycinek zdjęcia — motyw wychodził przesunięty w górę.
+   Ujemny margines wsuwa sekcję pod pasek, a większy odstęp u góry oddaje jej
+   tę wysokość z powrotem, więc położenie tytułu i całej reszty strony
+   zostaje bez zmian. */
 .page-hero {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--pad-section) 0;
+  margin-top: calc(-1 * var(--header-h));
+  padding: calc(var(--pad-section) + var(--header-h)) 0 var(--pad-section);
   text-align: center;
   color: #fff;
   background: var(--text) center / cover no-repeat;
